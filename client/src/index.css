@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --color-bg: #0a0e17;
+  --color-surface: #111826;
+  --color-surface-2: #172137;
+  --color-surface-3: #1d2941;
+  --color-border: #253251;
+  --color-border-soft: #1b2540;
+  --color-text: #e8ecf5;
+  --color-text-muted: #8f9ab3;
+  --color-text-faint: #5c667f;
+
+  --color-green: #3ea66d;
+  --color-green-soft: #1c3a2c;
+  --color-amber: #e0a63a;
+  --color-amber-soft: #3d301a;
+  --color-clay: #c1713f;
+  --color-clay-soft: #3a2519;
+  --color-red: #d1553a;
+  --color-red-soft: #3c211b;
+  --color-deepred: #a83a2c;
+  --color-blue: #4a93c9;
+  --color-blue-soft: #1a2c3a;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-green);
+  color: #06110c;
+}
+
+/* subtle topographic contour texture used as a signature background motif */
+.contour-field {
+  background-image:
+    repeating-radial-gradient(circle at 18% 28%, transparent 0, transparent 26px, rgba(62, 166, 109, 0.06) 27px, transparent 28px, transparent 54px),
+    repeating-radial-gradient(circle at 82% 68%, transparent 0, transparent 34px, rgba(224, 166, 58, 0.05) 35px, transparent 36px, transparent 70px);
+}
+
+.data-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-surface-3); border-radius: 8px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+@keyframes flow-dash {
+  to { stroke-dashoffset: -40; }
+}
+.flow-line {
+  stroke-dasharray: 6 6;
+  animation: flow-dash 1.8s linear infinite;
+}
+
+.leaflet-container {
+  background: var(--color-surface) !important;
+  font-family: var(--font-body);
+}

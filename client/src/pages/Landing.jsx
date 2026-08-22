@@ -1,0 +1,162 @@
+import { Link } from "react-router-dom";
+import { Mountain, ArrowRight, Satellite, Calculator, Waves, Sprout, Camera, TrendingUp } from "lucide-react";
+
+const WORKFLOW = [
+  { icon: Satellite, label: "Satellite & Environmental Data", desc: "Sentinel-1/2, SRTM, CHIRPS, SoilGrids" },
+  { icon: Calculator, label: "RUSLE Soil-Loss Estimation", desc: "Transparent A = R\u00d7K\u00d7LS\u00d7C\u00d7P calculation" },
+  { icon: Waves, label: "Hydrological Analysis", desc: "Flow accumulation & runoff prioritization" },
+  { icon: TrendingUp, label: "Erosion Prediction", desc: "Trend-based one-to-two season forecast" },
+  { icon: Sprout, label: "Conservation Recommendations", desc: "Check dams, bunding, agroforestry & more" },
+  { icon: Camera, label: "Citizen Photo Validation", desc: "Ground truth confirms satellite predictions" }
+];
+
+const CAPABILITIES = [
+  { title: "RUSLE Engine", desc: "Deterministic, explainable soil-loss estimation with a full factor breakdown \u2014 never a black box." },
+  { title: "Flood & Drought Monitoring", desc: "Extends erosion risk into broader land-risk indicators using rainfall, NDVI and moisture proxies." },
+  { title: "Citizen Validation Loop", desc: "Farmer-submitted field photos close the loop between satellite prediction and ground reality." }
+];
+
+export default function Landing() {
+  return (
+    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
+      {/* Nav */}
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-green-soft)] text-[var(--color-green)]">
+            <Mountain className="h-4.5 w-4.5" />
+          </div>
+          <span className="font-[var(--font-display)] text-base font-semibold">Bhoomi-Drishti</span>
+        </div>
+        <Link
+          to="/login"
+          className="rounded-lg border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-green)]/40 hover:text-[var(--color-text)]"
+        >
+          Sign in
+        </Link>
+      </header>
+
+      {/* Hero */}
+      <section className="contour-field relative mx-auto max-w-6xl px-6 pb-20 pt-10 md:pt-16">
+        <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-green)]/30 bg-[var(--color-green-soft)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-green)]">
+          Geo-AI Decision Support &middot; Smart India Hackathon
+        </p>
+        <h1 className="max-w-3xl font-[var(--font-display)] text-4xl font-semibold leading-tight md:text-5xl">
+          See where soil is being lost, before the season proves it.
+        </h1>
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
+          Bhoomi-Drishti turns satellite and environmental observations into plot-level soil erosion risk,
+          flood and drought indicators, and ranked conservation recommendations \u2014 validated by farmers on the ground.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            to="/login"
+            className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#06110c] transition-transform hover:translate-y-[-1px]"
+          >
+            Explore Dashboard <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            to="/login?demo=analysis"
+            className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-5 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:border-[var(--color-text-muted)]"
+          >
+            View Demo Analysis
+          </Link>
+        </div>
+      </section>
+
+      {/* Problem statement */}
+      <section className="border-y border-[var(--color-border-soft)] bg-[var(--color-surface)]/50">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <div className="grid gap-8 md:grid-cols-2">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-amber)]">The problem</p>
+              <p className="mt-3 text-lg leading-relaxed text-[var(--color-text-muted)]">
+                Soil erosion assessment across India is largely manual, slow and reactive \u2014 by the time
+                degradation is visible on the ground, topsoil and productivity have already been lost.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-green)]">The platform</p>
+              <p className="mt-3 text-lg leading-relaxed text-[var(--color-text-muted)]">
+                Bhoomi-Drishti combines RUSLE modelling, hydrological flow analysis and rainfall/vegetation
+                trends into one visual, proactive workflow \u2014 from satellite signal to recommended action.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Workflow */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <h2 className="font-[var(--font-display)] text-2xl font-semibold">From signal to intervention</h2>
+        <p className="mt-2 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {WORKFLOW.map(({ icon: Icon, label, desc }, i) => (
+            <div key={label} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+              <div className="flex items-center gap-2 text-[var(--color-text-faint)]">
+                <Icon className="h-4 w-4 text-[var(--color-green)]" />
+                <span className="data-figure text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+              </div>
+              <p className="mt-3 text-sm font-semibold">{label}</p>
+              <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* RUSLE explainer */}
+      <section className="border-y border-[var(--color-border-soft)] bg-[var(--color-surface)]/50">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-clay)]">Transparent science</p>
+              <h3 className="mt-2 font-[var(--font-display)] text-xl font-semibold">The RUSLE model, shown in full</h3>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+                Every soil-loss estimate is calculated with the Revised Universal Soil Loss Equation and
+                shown factor-by-factor \u2014 rainfall erosivity, soil erodibility, slope, cover management and
+                conservation practice \u2014 so nothing is a black box.
+              </p>
+            </div>
+            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-center">
+              <p className="data-figure text-2xl font-semibold">A = R &times; K &times; LS &times; C &times; P</p>
+              <p className="mt-3 data-figure text-sm text-[var(--color-text-muted)]">850 &times; 0.32 &times; 1.8 &times; 0.35 &times; 0.7</p>
+              <p className="mt-1 text-xs text-[var(--color-text-faint)]">Estimated soil loss, in tonnes/hectare/year</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <h2 className="font-[var(--font-display)] text-2xl font-semibold">Built beyond erosion alone</h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {CAPABILITIES.map((c) => (
+            <div key={c.title} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+              <p className="text-sm font-semibold">{c.title}</p>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-faint)]">{c.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-10 text-center">
+          <h3 className="font-[var(--font-display)] text-xl font-semibold">See it work on real Indian regions</h3>
+          <p className="mx-auto mt-2 max-w-md text-sm text-[var(--color-text-faint)]">
+            Assam's flood-prone floodplains, Rajasthan's drought-stressed drylands, and four more \u2014 loaded with demo data, ready to explore.
+          </p>
+          <Link
+            to="/login"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#06110c]"
+          >
+            Explore Dashboard <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
+      <footer className="border-t border-[var(--color-border-soft)] px-6 py-6 text-center text-[11px] text-[var(--color-text-faint)]">
+        Bhoomi-Drishti &middot; Prototype for Smart India Hackathon 2026 &middot; Demo environmental dataset unless configured otherwise
+      </footer>
+    </div>
+  );
+}
