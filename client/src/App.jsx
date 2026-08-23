@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { RegionProvider } from "./context/RegionContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -17,7 +18,9 @@ import About from "./pages/About";
 function withProviders(children) {
   return (
     <RegionProvider>
-      <ProtectedRoute>{children}</ProtectedRoute>
+      <ProtectedRoute>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </ProtectedRoute>
     </RegionProvider>
   );
 }

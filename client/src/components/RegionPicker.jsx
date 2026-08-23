@@ -1,16 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MapPin, Search, ChevronRight, X } from "lucide-react";
+import { MapPin, Search, ChevronDown, X } from "lucide-react";
 
 // Two-level picker: main dropdown lists state names only.
-// Hovering (or clicking, for touch/keyboard) a state opens a
-// flyout submenu listing that state's districts.
+// Clicking a state expands its districts inline, directly below it
+// (accordion-style) so nothing ever opens off-screen to the side.
 export default function RegionPicker({ regions, selectedRegionId, onChange }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [activeState, setActiveState] = useState(null); // name of state whose submenu is open
+  const [activeState, setActiveState] = useState(null); // name of state whose district list is expanded
   const rootRef = useRef(null);
   const inputRef = useRef(null);
-  const closeSubmenuTimer = useRef(null);
   const isLoading = regions.length === 0;
 
   const selected = regions.find((r) => r.id === selectedRegionId);
@@ -66,9 +65,11 @@ export default function RegionPicker({ regions, selectedRegionId, onChange }) {
   useEffect(() => {
     if (open) {
       setQuery("");
-      setActiveState(null);
+      // Auto-expand the selected region's state so it's immediately visible.
+      setActiveState(selected?.name ?? null);
       setTimeout(() => inputRef.current?.focus(), 0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   function selectRegion(r) {
@@ -77,17 +78,7 @@ export default function RegionPicker({ regions, selectedRegionId, onChange }) {
     setActiveState(null);
   }
 
-  function handleStateEnter(stateName) {
-    if (closeSubmenuTimer.current) clearTimeout(closeSubmenuTimer.current);
-    setActiveState(stateName);
-  }
-
-  function handleStateLeave() {
-    closeSubmenuTimer.current = setTimeout(() => setActiveState(null), 150);
-  }
-
-  function handleStateClick(stateName) {
-    // Touch/keyboard fallback: click toggles the submenu open
+  function toggleState(stateName) {
     setActiveState((prev) => (prev === stateName ? null : stateName));
   }
 
@@ -111,7 +102,7 @@ export default function RegionPicker({ regions, selectedRegionId, onChange }) {
       </button>
 
       {open && !isLoading && (
-        <div className="absolute left-0 top-full z-50 mt-1.5 w-64 overflow-visible rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] shadow-xl">
+        <div className="absolute left-0 top-full z-50 mt-1.5 w-64 overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] shadow-xl">
           <div className="flex items-center gap-2 border-b border-[var(--color-border-soft)] px-3 py-2">
             <Search className="h-3.5 w-3.5 shrink-0 text-[var(--color-text-faint)]" />
             <input
@@ -133,7 +124,7 @@ export default function RegionPicker({ regions, selectedRegionId, onChange }) {
           </div>
 
           {searchResults ? (
-            <ul className="max-h-72 overflow-y-auto scrollbar-thin py-1">
+            <ul className="max-h-80 overflow-y-auto scrollbar-thin py-1">
               {searchResults.length === 0 && (
                 <li className="px-3 py-4 text-center text-xs text-[var(--color-text-faint)]">
                   No regions match &ldquo;{query}&rdquo;
@@ -155,41 +146,36 @@ export default function RegionPicker({ regions, selectedRegionId, onChange }) {
               ))}
             </ul>
           ) : (
-            <ul className="max-h-72 overflow-y-auto scrollbar-thin py-1">
-              {states.map((s) => (
-                <li
-                  key={s.name}
-                  className="relative"
-                  onMouseEnter={() => handleStateEnter(s.name)}
-                  onMouseLeave={handleStateLeave}
-                >
-                  <button
-                    type="button"
-                    onClick={() => handleStateClick(s.name)}
-                    className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm hover:bg-[var(--color-surface-2)] ${
-                      activeState === s.name ? "bg-[var(--color-surface-2)]" : ""
-                    }`}
-                  >
-                    <span className="truncate font-medium">{s.name}</span>
-                    <span className="flex items-center gap-1 shrink-0 text-[10px] text-[var(--color-text-faint)]">
-                      {s.districts.length} districts
-                      <ChevronRight className="h-3.5 w-3.5" />
-                    </span>
-                  </button>
-
-                  {activeState === s.name && (
-                    <div
-                      className="absolute left-full top-0 z-50 ml-1 w-60 overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] shadow-xl"
-                      onMouseEnter={() => handleStateEnter(s.name)}
-                      onMouseLeave={handleStateLeave}
+            <ul className="max-h-80 overflow-y-auto scrollbar-thin py-1">
+              {states.map((s) => {
+                const isExpanded = activeState === s.name;
+                return (
+                  <li key={s.name}>
+                    <button
+                      type="button"
+                      onClick={() => toggleState(s.name)}
+                      aria-expanded={isExpanded}
+                      className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm hover:bg-[var(--color-surface-2)] ${
+                        isExpanded ? "bg-[var(--color-surface-2)]" : ""
+                      }`}
                     >
-                      <ul className="max-h-72 overflow-y-auto scrollbar-thin py-1">
+                      <span className="truncate font-medium">{s.name}</span>
+                      <span className="flex items-center gap-1 shrink-0 text-[10px] text-[var(--color-text-faint)]">
+                        {s.districts.length} districts
+                        <ChevronDown
+                          className={`h-3.5 w-3.5 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                        />
+                      </span>
+                    </button>
+
+                    {isExpanded && (
+                      <ul className="border-t border-[var(--color-border-soft)] bg-[var(--color-surface-2)]/40 py-1">
                         {s.districts.map((r) => (
                           <li key={r.id}>
                             <button
                               type="button"
                               onClick={() => selectRegion(r)}
-                              className={`block w-full truncate px-3 py-1.5 text-left text-sm hover:bg-[var(--color-surface-2)] ${
+                              className={`block w-full truncate py-1.5 pl-8 pr-3 text-left text-sm hover:bg-[var(--color-surface-2)] ${
                                 r.id === selectedRegionId
                                   ? "text-[var(--color-green)] font-semibold"
                                   : ""
@@ -200,10 +186,10 @@ export default function RegionPicker({ regions, selectedRegionId, onChange }) {
                           </li>
                         ))}
                       </ul>
-                    </div>
-                  )}
-                </li>
-              ))}
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>

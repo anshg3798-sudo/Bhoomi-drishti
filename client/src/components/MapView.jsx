@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, GeoJSON, useMap } from "react-leaflet";
 import { Layers } from "lucide-react";
 import { RiskPill } from "./Badges";
@@ -35,7 +35,9 @@ function scoreCategory(score) {
 
 function Recenter({ coordinates }) {
   const map = useMap();
-  if (coordinates) map.flyTo(coordinates, 7, { duration: 0.6 });
+  useEffect(() => {
+    if (coordinates) map.flyTo(coordinates, 7, { duration: 0.6 });
+  }, [coordinates, map]);
   return null;
 }
 
