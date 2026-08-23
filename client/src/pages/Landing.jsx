@@ -104,7 +104,6 @@ export default function Landing() {
                   <p className="mt-3 text-sm font-semibold">{label}</p>
                   <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
                 </div>
-                {/* arrow to the next step, hidden after the last card and on small screens where cards wrap */}
                 {i < WORKFLOW.length - 1 && (
                   <span className="pointer-events-none absolute -right-5 top-7 z-10 hidden h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--color-green)] bg-[var(--color-bg)] text-[var(--color-green)] lg:flex">
                     <ArrowRight className="h-5 w-5" strokeWidth={2.5} />
