@@ -179,8 +179,6 @@ export default function MapView({
           </div>
         </div>
       )}
-
-      {/* Color legend so viewers know what each marker color means */}
       <div className="absolute bottom-3 right-3 z-[1000] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/95 px-3 py-2 text-xs shadow-lg backdrop-blur">
         <p className="mb-1.5 font-medium text-[var(--color-text-muted)]">Risk Level</p>
         <div className="space-y-1">

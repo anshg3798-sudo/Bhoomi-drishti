@@ -16,6 +16,14 @@ const CAPABILITIES = [
   { title: "Citizen Validation Loop", desc: "Farmer-submitted field photos close the loop between satellite prediction and ground reality." }
 ];
 
+const RUSLE_FACTORS = [
+  { letter: "R", name: "Rainfall Erosivity" },
+  { letter: "K", name: "Soil Erodibility" },
+  { letter: "LS", name: "Slope Length" },
+  { letter: "C", name: "Cover Management" },
+  { letter: "P", name: "Support Practice" }
+];
+
 export default function Landing() {
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
@@ -89,6 +97,8 @@ export default function Landing() {
       <section className="mx-auto max-w-6xl px-6 py-16">
         <h2 className="font-[var(--font-display)] text-2xl font-semibold">From signal to intervention</h2>
         <p className="mt-2 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
+
+        {/* connecting line sits behind the cards, only visible on larger screens where the grid is a straight row */}
         <div className="relative mt-8">
           <div className="pointer-events-none absolute left-0 right-0 top-9 hidden h-px bg-[var(--color-border)] lg:block" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
@@ -104,6 +114,7 @@ export default function Landing() {
                   <p className="mt-3 text-sm font-semibold">{label}</p>
                   <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
                 </div>
+                {/* arrow to the next step, hidden after the last card and on small screens where cards wrap */}
                 {i < WORKFLOW.length - 1 && (
                   <span className="pointer-events-none absolute -right-5 top-7 z-10 hidden h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--color-green)] bg-[var(--color-bg)] text-[var(--color-green)] lg:flex">
                     <ArrowRight className="h-5 w-5" strokeWidth={2.5} />
@@ -117,21 +128,33 @@ export default function Landing() {
 
       {/* RUSLE explainer */}
       <section className="border-y border-[var(--color-border-soft)] bg-[var(--color-surface)]/50">
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <div className="grid items-center gap-8 md:grid-cols-2">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-clay)]">Transparent science</p>
-              <h3 className="mt-2 font-[var(--font-display)] text-xl font-semibold">The RUSLE model, shown in full</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              <h3 className="mt-2 font-[var(--font-display)] text-2xl font-semibold md:text-3xl">The RUSLE model, shown in full</h3>
+              <p className="mt-4 text-base leading-relaxed text-[var(--color-text-muted)]">
                 Every soil-loss estimate is calculated with the Revised Universal Soil Loss Equation and
                 shown factor-by-factor \u2014 rainfall erosivity, soil erodibility, slope, cover management and
                 conservation practice \u2014 so nothing is a black box.
               </p>
             </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-center">
-              <p className="data-figure text-2xl font-semibold">A = R &times; K &times; LS &times; C &times; P</p>
-              <p className="mt-3 data-figure text-sm text-[var(--color-text-muted)]">850 &times; 0.32 &times; 1.8 &times; 0.35 &times; 0.7</p>
+            <div className="relative rounded-2xl border-2 border-[var(--color-clay)]/40 bg-[var(--color-surface)] p-8 text-center shadow-[0_0_40px_-12px_rgba(193,113,63,0.35)]">
+              <p className="data-figure text-3xl font-bold tracking-tight md:text-4xl">
+                A = R &times; K &times; LS &times; C &times; P
+              </p>
+              <p className="mt-4 data-figure text-lg text-[var(--color-text-muted)]">
+                850 &times; 0.32 &times; 1.8 &times; 0.35 &times; 0.7
+              </p>
               <p className="mt-1 text-xs text-[var(--color-text-faint)]">Estimated soil loss, in tonnes/hectare/year</p>
+              <div className="mt-6 grid grid-cols-5 gap-2 border-t border-[var(--color-border-soft)] pt-5">
+                {RUSLE_FACTORS.map(({ letter, name }) => (
+                  <div key={letter}>
+                    <p className="data-figure text-sm font-bold text-[var(--color-clay)]">{letter}</p>
+                    <p className="mt-1 text-[10px] leading-tight text-[var(--color-text-faint)]">{name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
