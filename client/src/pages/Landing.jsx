@@ -89,17 +89,30 @@ export default function Landing() {
       <section className="mx-auto max-w-6xl px-6 py-16">
         <h2 className="font-[var(--font-display)] text-2xl font-semibold">From signal to intervention</h2>
         <p className="mt-2 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {WORKFLOW.map(({ icon: Icon, label, desc }, i) => (
-            <div key={label} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-              <div className="flex items-center gap-2 text-[var(--color-text-faint)]">
-                <Icon className="h-4 w-4 text-[var(--color-green)]" />
-                <span className="data-figure text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+        <div className="relative mt-8">
+          <div className="pointer-events-none absolute left-0 right-0 top-9 hidden h-px bg-[var(--color-border)] lg:block" />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            {WORKFLOW.map(({ icon: Icon, label, desc }, i) => (
+              <div key={label} className="relative">
+                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+                  <div className="flex items-center gap-2 text-[var(--color-text-faint)]">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--color-green)]/40 bg-[var(--color-bg)] text-[var(--color-green)]">
+                      <Icon className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="data-figure text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+                  </div>
+                  <p className="mt-3 text-sm font-semibold">{label}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
+                </div>
+                {/* arrow to the next step, hidden after the last card and on small screens where cards wrap */}
+                {i < WORKFLOW.length - 1 && (
+                  <span className="pointer-events-none absolute -right-5 top-7 z-10 hidden h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--color-green)] bg-[var(--color-bg)] text-[var(--color-green)] lg:flex">
+                    <ArrowRight className="h-5 w-5" strokeWidth={2.5} />
+                  </span>
+                )}
               </div>
-              <p className="mt-3 text-sm font-semibold">{label}</p>
-              <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
