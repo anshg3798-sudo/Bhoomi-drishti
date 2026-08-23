@@ -190,7 +190,7 @@ export default function Landing() {
         <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-10 text-center">
           <h3 className="font-[var(--font-display)] text-xl font-semibold">See it work on real Indian regions</h3>
           <p className="mx-auto mt-2 max-w-md text-sm text-[var(--color-text-faint)]">
-            Assam's flood-prone floodplains, Rajasthan's drought-stressed drylands, and four more \u2014 loaded with demo data, ready to explore.
+            Assam's flood-prone floodplains and Meghalaya's erosion-prone hill districts \u2014 loaded with demo data, ready to explore.
           </p>
           <Link
             to="/login"

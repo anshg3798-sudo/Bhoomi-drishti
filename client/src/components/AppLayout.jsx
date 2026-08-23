@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, SearchCode, Map as MapIcon, ListOrdered, Sprout,
-  Camera, Info, LogOut, Mountain, ChevronDown
+  Camera, Info, LogOut, Mountain
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useRegion } from "../context/RegionContext";
 import { DataModeBadge } from "./Badges";
+import RegionPicker from "./RegionPicker";
 
 const NAV_ITEMS = [
   { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
@@ -83,18 +84,11 @@ export default function AppLayout({ children }) {
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-[var(--color-border-soft)] bg-[var(--color-surface)]/70 px-4 backdrop-blur md:px-6">
           <div className="flex items-center gap-3">
             <span className="text-xs text-[var(--color-text-faint)] hidden sm:inline">Region</span>
-            <div className="relative">
-              <select
-                value={selectedRegionId}
-                onChange={(e) => setSelectedRegionId(e.target.value)}
-                className="appearance-none rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] py-1.5 pl-3 pr-8 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-green)]/40"
-              >
-                {(regions.length ? regions : [{ id: "assam", name: "Assam" }]).map((r) => (
-                  <option key={r.id} value={r.id}>{r.name}</option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--color-text-faint)]" />
-            </div>
+            <RegionPicker
+              regions={regions}
+              selectedRegionId={selectedRegionId}
+              onChange={setSelectedRegionId}
+            />
           </div>
 
           <div className="flex items-center gap-3">

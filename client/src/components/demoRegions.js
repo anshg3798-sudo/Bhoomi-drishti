@@ -1,13 +1,5 @@
-// Deterministic demo dataset representing pre-processed satellite/environmental
-// observations. These values are DEMO ESTIMATES for the SIH prototype and are
-// intentionally fixed (not randomized) so the dashboard is stable across reloads.
-// In LIVE mode, satelliteService.js would replace this with real Sentinel-1/2,
-// SRTM, CHIRPS and SoilGrids derived values.
-//
-// Restricted to Assam (35 districts) and Meghalaya (11 districts) only.
 
 const demoRegions = [
-  // ===================== ASSAM (35 districts) =====================
   {
     id: "assam",
     name: "Assam",
@@ -884,4 +876,4 @@ const demoRegions = [
   }
 ];
 
-module.exports = demoRegions;
+export default demoRegions;
