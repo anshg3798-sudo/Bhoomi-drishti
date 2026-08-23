@@ -1,20 +1,21 @@
 export function riskColor(category) {
   switch (category) {
-    case "Very Low": return { text: "text-[var(--color-green)]", bg: "bg-[var(--color-green-soft)]", ring: "ring-[var(--color-green)]/30" };
-    case "Low": return { text: "text-[var(--color-green)]", bg: "bg-[var(--color-green-soft)]", ring: "ring-[var(--color-green)]/30" };
-    case "Moderate": return { text: "text-[var(--color-amber)]", bg: "bg-[var(--color-amber-soft)]", ring: "ring-[var(--color-amber)]/30" };
-    case "High": return { text: "text-[var(--color-clay)]", bg: "bg-[var(--color-clay-soft)]", ring: "ring-[var(--color-clay)]/30" };
-    case "Very High": return { text: "text-[var(--color-red)]", bg: "bg-[var(--color-red-soft)]", ring: "ring-[var(--color-red)]/30" };
-    case "Critical": return { text: "text-[var(--color-deepred)]", bg: "bg-[var(--color-red-soft)]", ring: "ring-[var(--color-deepred)]/40" };
-    default: return { text: "text-[var(--color-text-muted)]", bg: "bg-[var(--color-surface-2)]", ring: "ring-[var(--color-border)]" };
+    case "Very Low": return { text: "text-[var(--color-green)]", bg: "bg-[var(--color-green-soft)]", swatch: "bg-[var(--color-green)]", ring: "ring-[var(--color-green)]/30" };
+    case "Low": return { text: "text-[var(--color-green)]", bg: "bg-[var(--color-green-soft)]", swatch: "bg-[var(--color-green)]", ring: "ring-[var(--color-green)]/30" };
+    case "Moderate": return { text: "text-[var(--color-amber)]", bg: "bg-[var(--color-amber-soft)]", swatch: "bg-[var(--color-amber)]", ring: "ring-[var(--color-amber)]/30" };
+    case "High": return { text: "text-[var(--color-clay)]", bg: "bg-[var(--color-clay-soft)]", swatch: "bg-[var(--color-clay)]", ring: "ring-[var(--color-clay)]/30" };
+    case "Very High": return { text: "text-[var(--color-red)]", bg: "bg-[var(--color-red-soft)]", swatch: "bg-[var(--color-red)]", ring: "ring-[var(--color-red)]/30" };
+    case "Critical": return { text: "text-[var(--color-deepred)]", bg: "bg-[var(--color-red-soft)]", swatch: "bg-[var(--color-deepred)]", ring: "ring-[var(--color-deepred)]/40" };
+    default: return { text: "text-[var(--color-text-muted)]", bg: "bg-[var(--color-surface-2)]", swatch: "bg-[var(--color-text-faint)]", ring: "ring-[var(--color-border)]" };
   }
 }
 
 export function RiskPill({ category, size = "md" }) {
   const c = riskColor(category);
-  const sizeCls = size === "sm" ? "text-[11px] px-2 py-0.5" : "text-xs px-2.5 py-1";
+  const sizeCls = size === "sm" ? "text-[11px] gap-1" : "text-xs gap-1.5";
   return (
-    <span className={`inline-flex items-center rounded-full font-semibold ring-1 ${c.text} ${c.bg} ${c.ring} ${sizeCls}`}>
+    <span className={`inline-flex items-center font-semibold ${c.text} ${sizeCls}`}>
+      <span className={`h-2.5 w-2.5 shrink-0 ${c.swatch}`} />
       {category}
     </span>
   );

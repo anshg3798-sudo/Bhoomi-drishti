@@ -11,19 +11,19 @@ const LAYER_OPTIONS = [
 ];
 
 const CATEGORY_COLOR = {
-  "Very Low": "#3ea66d",
-  Low: "#3ea66d",
-  Moderate: "#e0a63a",
-  High: "#c1713f",
-  "Very High": "#d1553a",
-  Critical: "#a83a2c"
+  "Very Low": "#3f6b32",
+  Low: "#3f6b32",
+  Moderate: "#93691b",
+  High: "#8c451f",
+  "Very High": "#7a3018",
+  Critical: "#5c2412"
 };
 const LEGEND_ITEMS = [
-  { label: "Low", color: "#3ea66d" },
-  { label: "Moderate", color: "#e0a63a" },
-  { label: "High", color: "#c1713f" },
-  { label: "Very High", color: "#d1553a" },
-  { label: "Critical", color: "#a83a2c" }
+  { label: "Low", color: "#3f6b32" },
+  { label: "Moderate", color: "#93691b" },
+  { label: "High", color: "#8c451f" },
+  { label: "Very High", color: "#7a3018" },
+  { label: "Critical", color: "#5c2412" }
 ];
 
 function scoreCategory(score) {
@@ -114,7 +114,7 @@ export default function MapView({
         {showPriorityZone && hydrology?.priorityZone && (
           <GeoJSON
             data={hydrology.priorityZone}
-            style={() => ({ color: "#d1553a", weight: 1.5, fillColor: "#d1553a", fillOpacity: 0.12, dashArray: "4 4" })}
+            style={() => ({ color: "#7a3018", weight: 1.5, fillColor: "#7a3018", fillOpacity: 0.12, dashArray: "4 4" })}
           />
         )}
 
@@ -184,7 +184,7 @@ export default function MapView({
         <div className="space-y-1">
           {LEGEND_ITEMS.map(({ label, color }) => (
             <div key={label} className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: color }} />
+              <span className="h-2.5 w-2.5 shrink-0" style={{ backgroundColor: color }} />
               <span className="text-[var(--color-text-muted)]">{label}</span>
             </div>
           ))}

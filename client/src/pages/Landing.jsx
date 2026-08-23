@@ -44,21 +44,19 @@ export default function Landing() {
       </header>
 
       {/* Hero */}
-      <section className="contour-field relative mx-auto max-w-6xl px-6 pb-20 pt-10 md:pt-16">
-        <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-green)]/30 bg-[var(--color-green-soft)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-green)]">
-          Geo-AI Decision Support &middot; Smart India Hackathon
-        </p>
-        <h1 className="max-w-3xl font-[var(--font-display)] text-4xl font-semibold leading-tight md:text-5xl">
-          See where soil is being lost, before the season proves it.
+      <section className="contour-field relative mx-auto max-w-6xl px-6 pb-16 pt-10 md:pt-16">
+        <p className="eyebrow mb-5">Geo-AI Decision Support &middot; Smart India Hackathon</p>
+        <h1 className="display-hero max-w-4xl text-5xl md:text-7xl">
+          See where soil is being lost, <span className="text-[var(--color-clay)]">before the season proves it.</span>
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
           Bhoomi-Drishti turns satellite and environmental observations into plot-level soil erosion risk,
           flood and drought indicators, and ranked conservation recommendations \u2014 validated by farmers on the ground.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#06110c] transition-transform hover:translate-y-[-1px]"
+            className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6] transition-transform hover:translate-y-[-1px]"
           >
             Explore Dashboard <ArrowRight className="h-4 w-4" />
           </Link>
@@ -70,20 +68,33 @@ export default function Landing() {
           </Link>
         </div>
       </section>
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="strata">
+          <span className="strata-topsoil" />
+          <span className="strata-subsoil" />
+          <span className="strata-clay" />
+          <span className="strata-bedrock" />
+        </div>
+        <div className="mt-1.5 flex justify-between text-[10px] text-[var(--color-text-faint)]">
+          <span>0 cm</span>
+          <span>soil profile read by the model, horizon by horizon</span>
+          <span>120 cm</span>
+        </div>
+      </div>
 
       {/* Problem statement */}
       <section className="border-y border-[var(--color-border-soft)] bg-[var(--color-surface)]/50">
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid gap-8 md:grid-cols-2">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-amber)]">The problem</p>
+              <p className="eyebrow text-[var(--color-amber)]">The problem</p>
               <p className="mt-3 text-lg leading-relaxed text-[var(--color-text-muted)]">
                 Soil erosion assessment across India is largely manual, slow and reactive \u2014 by the time
                 degradation is visible on the ground, topsoil and productivity have already been lost.
               </p>
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-green)]">The platform</p>
+              <p className="eyebrow text-[var(--color-green)]">The platform</p>
               <p className="mt-3 text-lg leading-relaxed text-[var(--color-text-muted)]">
                 Bhoomi-Drishti combines RUSLE modelling, hydrological flow analysis and rainfall/vegetation
                 trends into one visual, proactive workflow \u2014 from satellite signal to recommended action.
@@ -95,8 +106,8 @@ export default function Landing() {
 
       {/* Workflow */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="font-[var(--font-display)] text-2xl font-semibold">From signal to intervention</h2>
-        <p className="mt-2 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
+        <h2 className="display-hero text-3xl md:text-4xl">From signal to intervention</h2>
+        <p className="mt-3 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
 
         {/* connecting line sits behind the cards, only visible on larger screens where the grid is a straight row */}
         <div className="relative mt-8">
@@ -131,8 +142,8 @@ export default function Landing() {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-clay)]">Transparent science</p>
-              <h3 className="mt-2 font-[var(--font-display)] text-2xl font-semibold md:text-3xl">The RUSLE model, shown in full</h3>
+              <p className="eyebrow text-[var(--color-clay)]">Transparent science</p>
+              <h3 className="display-hero mt-2 text-2xl md:text-3xl">The RUSLE model, shown in full</h3>
               <p className="mt-4 text-base leading-relaxed text-[var(--color-text-muted)]">
                 Every soil-loss estimate is calculated with the Revised Universal Soil Loss Equation and
                 shown factor-by-factor \u2014 rainfall erosivity, soil erodibility, slope, cover management and
@@ -147,6 +158,7 @@ export default function Landing() {
                 850 &times; 0.32 &times; 1.8 &times; 0.35 &times; 0.7
               </p>
               <p className="mt-1 text-xs text-[var(--color-text-faint)]">Estimated soil loss, in tonnes/hectare/year</p>
+
               <div className="mt-6 grid grid-cols-5 gap-2 border-t border-[var(--color-border-soft)] pt-5">
                 {RUSLE_FACTORS.map(({ letter, name }) => (
                   <div key={letter}>
@@ -162,7 +174,7 @@ export default function Landing() {
 
       {/* Capabilities */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="font-[var(--font-display)] text-2xl font-semibold">Built beyond erosion alone</h2>
+        <h2 className="display-hero text-3xl md:text-4xl">Built beyond erosion alone</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {CAPABILITIES.map((c) => (
             <div key={c.title} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
@@ -182,7 +194,7 @@ export default function Landing() {
           </p>
           <Link
             to="/login"
-            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#06110c]"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6]"
           >
             Explore Dashboard <ArrowRight className="h-4 w-4" />
           </Link>

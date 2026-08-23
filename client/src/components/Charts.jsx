@@ -3,15 +3,15 @@ import {
   BarChart, Bar, Cell, PieChart, Pie, Legend
 } from "recharts";
 
-const GRID = "#e8e0cd";
-const AXIS = "#948c78";
+const GRID = "#eae3c9";
+const AXIS = "#93855f";
 
 const tooltipStyle = {
-  background: "#fffdf9",
-  border: "1px solid #ddd3ba",
+  background: "#fdfcf6",
+  border: "1px solid #ddd3b0",
   borderRadius: 8,
   fontSize: 12,
-  color: "#2b2820"
+  color: "#2a2416"
 };
 
 export function RainfallNdviChart({ series = [] }) {
@@ -86,7 +86,7 @@ export function RiskDistributionChart({ zones = [] }) {
     <ResponsiveContainer width="100%" height={200}>
       <PieChart>
         <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={45} outerRadius={72} paddingAngle={2}>
-          {data.map((d, i) => <Cell key={i} fill={RISK_COLOR[d.name] || "#948c78"} />)}
+          {data.map((d, i) => <Cell key={i} fill={RISK_COLOR[d.name] || "#93855f"} />)}
         </Pie>
         <Tooltip contentStyle={tooltipStyle} />
         <Legend wrapperStyle={{ fontSize: 11 }} />

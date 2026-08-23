@@ -37,7 +37,7 @@ export default function AppLayout({ children }) {
           </div>
           <div>
             <p className="font-[var(--font-display)] text-sm font-semibold leading-none">Bhoomi-Drishti</p>
-            <p className="mt-1 text-[10px] uppercase tracking-wider text-[var(--color-text-faint)]">Geo-AI Erosion Platform</p>
+            <p className="eyebrow mt-1.5 text-[9px]">Geo-AI Erosion Platform</p>
           </div>
         </div>
 

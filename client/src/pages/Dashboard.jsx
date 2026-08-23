@@ -20,10 +20,10 @@ export default function Dashboard() {
     <AppLayout>
       <div className="mx-auto max-w-7xl space-y-6 p-4 md:p-6">
         <div>
-          <h1 className="font-[var(--font-display)] text-xl font-semibold">Overview</h1>
-          <p className="mt-1 text-xs text-[var(--color-text-faint)]">
+          <p className="eyebrow">
             {data ? `${data.region.name} \u2022 ${data.region.district}` : "Loading region summary..."}
           </p>
+          <h1 className="display-hero mt-1 text-2xl">Overview</h1>
         </div>
 
         {error && <ErrorState message={error} />}
