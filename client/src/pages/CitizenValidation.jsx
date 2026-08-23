@@ -129,7 +129,7 @@ export default function CitizenValidation() {
               </div>
               <button
                 type="submit" disabled={submitting}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-green)] px-4 py-2.5 text-sm font-semibold text-[#06110c] disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-green)] px-4 py-2.5 text-sm font-semibold text-[#fdfcf6] disabled:opacity-60"
               >
                 {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
                 Submit Report

@@ -5,10 +5,19 @@ const PRIORITY_STYLE = {
   Moderate: "text-[var(--color-amber)] bg-[var(--color-amber-soft)]",
   Low: "text-[var(--color-green)] bg-[var(--color-green-soft)]"
 };
+const PRIORITY_BORDER = {
+  High: "border-l-[var(--color-red)]",
+  Moderate: "border-l-[var(--color-amber)]",
+  Low: "border-l-[var(--color-green)]"
+};
 
 export function RecommendationCard({ rec }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+    <div
+      className={`rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 border-l-4 ${
+        PRIORITY_BORDER[rec.priority] || "border-l-[var(--color-border)]"
+      }`}
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-2.5">
           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-green)]" />

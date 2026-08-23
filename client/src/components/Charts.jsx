@@ -1,17 +1,12 @@
-import {
-  ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  BarChart, Bar, Cell, PieChart, Pie, Legend
-} from "recharts";
-
-const GRID = "#1b2540";
-const AXIS = "#5c667f";
-
+import {ResponsiveContainer,LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,BarChart,Bar,Cell,PieChart,Pie,Legend,} from "recharts";
+const GRID = "#eae3c9";
+const AXIS = "#93855f";
 const tooltipStyle = {
-  background: "#111826",
-  border: "1px solid #253251",
+  background: "#fdfcf6",
+  border: "1px solid #ddd3b0",
   borderRadius: 8,
   fontSize: 12,
-  color: "#e8ecf5"
+  color: "#2a2416",
 };
 
 export function RainfallNdviChart({ series = [] }) {
@@ -32,16 +27,22 @@ export function RainfallNdviChart({ series = [] }) {
 }
 
 export function ForecastChart({ series = [], forecast }) {
-  const data = [...series];
+  const data = series.map((item) => ({ ...item }));
+
   if (forecast) {
+    if (data.length >= 1) {
+      const lastIndex = data.length - 1;
+      data[lastIndex] = { ...data[lastIndex], link: data[lastIndex].soilLoss };
+    }
+
     data.push({
       season: "Next Season",
       soilLoss: null,
       forecastLoss: forecast.nextSeasonSoilLoss,
-      link: forecast.nextSeasonSoilLoss
+      link: forecast.nextSeasonSoilLoss,
     });
-    if (data.length >= 2) data[data.length - 2].link = data[data.length - 2].soilLoss;
   }
+
   return (
     <ResponsiveContainer width="100%" height={220}>
       <LineChart data={data} margin={{ top: 8, right: 12, left: -12, bottom: 0 }}>
@@ -61,6 +62,7 @@ export function ForecastChart({ series = [], forecast }) {
 export function RusleFactorChart({ factors = {} }) {
   const data = Object.entries(factors).map(([key, value]) => ({ factor: key, value }));
   const colors = ["#4a93c9", "#3ea66d", "#e0a63a", "#c1713f", "#d1553a"];
+
   return (
     <ResponsiveContainer width="100%" height={180}>
       <BarChart data={data} margin={{ top: 8, right: 12, left: -12, bottom: 0 }}>
@@ -69,24 +71,40 @@ export function RusleFactorChart({ factors = {} }) {
         <YAxis stroke={AXIS} tick={{ fontSize: 11 }} />
         <Tooltip contentStyle={tooltipStyle} />
         <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-          {data.map((_, i) => <Cell key={i} fill={colors[i % colors.length]} />)}
+          {data.map((_, index) => (
+            <Cell key={index} fill={colors[index % colors.length]} />
+          ))}
         </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
 }
 
-const RISK_COLOR = { "Very Low": "#3ea66d", Low: "#3ea66d", Moderate: "#e0a63a", High: "#c1713f", "Very High": "#d1553a", Critical: "#a83a2c" };
+const RISK_COLOR = {
+  "Very Low": "#3ea66d",
+  Low: "#3ea66d",
+  Moderate: "#e0a63a",
+  High: "#c1713f",
+  "Very High": "#d1553a",
+  Critical: "#a83a2c",
+};
 
 export function RiskDistributionChart({ zones = [] }) {
   const counts = {};
-  zones.forEach((z) => { counts[z.erosionRisk] = (counts[z.erosionRisk] || 0) + 1; });
+  zones.forEach((zone) => {
+    const risk = zone.erosionRisk;
+    counts[risk] = (counts[risk] || 0) + 1;
+  });
+
   const data = Object.entries(counts).map(([name, value]) => ({ name, value }));
+
   return (
     <ResponsiveContainer width="100%" height={200}>
       <PieChart>
         <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={45} outerRadius={72} paddingAngle={2}>
-          {data.map((d, i) => <Cell key={i} fill={RISK_COLOR[d.name] || "#5c667f"} />)}
+          {data.map((item, index) => (
+            <Cell key={index} fill={RISK_COLOR[item.name] || "#93855f"} />
+          ))}
         </Pie>
         <Tooltip contentStyle={tooltipStyle} />
         <Legend wrapperStyle={{ fontSize: 11 }} />

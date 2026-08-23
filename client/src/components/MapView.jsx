@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, GeoJSON, useMap } from "react-leaflet";
 import { Layers } from "lucide-react";
 import { RiskPill } from "./Badges";
@@ -11,13 +11,20 @@ const LAYER_OPTIONS = [
 ];
 
 const CATEGORY_COLOR = {
-  "Very Low": "#3ea66d",
-  Low: "#3ea66d",
-  Moderate: "#e0a63a",
-  High: "#c1713f",
-  "Very High": "#d1553a",
-  Critical: "#a83a2c"
+  "Very Low": "#3f6b32",
+  Low: "#3f6b32",
+  Moderate: "#93691b",
+  High: "#8c451f",
+  "Very High": "#7a3018",
+  Critical: "#5c2412"
 };
+const LEGEND_ITEMS = [
+  { label: "Low", color: "#3f6b32" },
+  { label: "Moderate", color: "#93691b" },
+  { label: "High", color: "#8c451f" },
+  { label: "Very High", color: "#7a3018" },
+  { label: "Critical", color: "#5c2412" }
+];
 
 function scoreCategory(score) {
   if (score < 25) return "Low";
@@ -28,7 +35,9 @@ function scoreCategory(score) {
 
 function Recenter({ coordinates }) {
   const map = useMap();
-  if (coordinates) map.flyTo(coordinates, 7, { duration: 0.6 });
+  useEffect(() => {
+    if (coordinates) map.flyTo(coordinates, 7, { duration: 0.6 });
+  }, [coordinates, map]);
   return null;
 }
 
@@ -107,7 +116,7 @@ export default function MapView({
         {showPriorityZone && hydrology?.priorityZone && (
           <GeoJSON
             data={hydrology.priorityZone}
-            style={() => ({ color: "#d1553a", weight: 1.5, fillColor: "#d1553a", fillOpacity: 0.12, dashArray: "4 4" })}
+            style={() => ({ color: "#7a3018", weight: 1.5, fillColor: "#7a3018", fillOpacity: 0.12, dashArray: "4 4" })}
           />
         )}
 
@@ -116,7 +125,7 @@ export default function MapView({
             key={r._id}
             center={r.coordinates}
             radius={7}
-            pathOptions={{ color: "#e8ecf5", fillColor: "#111826", fillOpacity: 0.9, weight: 2 }}
+            pathOptions={{ color: "#2b2820", fillColor: "#fffdf9", fillOpacity: 0.9, weight: 2 }}
           >
             <Popup>
               <div className="min-w-[160px] space-y-1 font-sans text-[13px]">
@@ -172,6 +181,17 @@ export default function MapView({
           </div>
         </div>
       )}
+      <div className="absolute bottom-3 right-3 z-[1000] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/95 px-3 py-2 text-xs shadow-lg backdrop-blur">
+        <p className="mb-1.5 font-medium text-[var(--color-text-muted)]">Risk Level</p>
+        <div className="space-y-1">
+          {LEGEND_ITEMS.map(({ label, color }) => (
+            <div key={label} className="flex items-center gap-1.5">
+              <span className="h-2.5 w-2.5 shrink-0" style={{ backgroundColor: color }} />
+              <span className="text-[var(--color-text-muted)]">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

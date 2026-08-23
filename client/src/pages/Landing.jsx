@@ -16,6 +16,14 @@ const CAPABILITIES = [
   { title: "Citizen Validation Loop", desc: "Farmer-submitted field photos close the loop between satellite prediction and ground reality." }
 ];
 
+const RUSLE_FACTORS = [
+  { letter: "R", name: "Rainfall Erosivity" },
+  { letter: "K", name: "Soil Erodibility" },
+  { letter: "LS", name: "Slope Length" },
+  { letter: "C", name: "Cover Management" },
+  { letter: "P", name: "Support Practice" }
+];
+
 export default function Landing() {
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
@@ -36,21 +44,19 @@ export default function Landing() {
       </header>
 
       {/* Hero */}
-      <section className="contour-field relative mx-auto max-w-6xl px-6 pb-20 pt-10 md:pt-16">
-        <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-green)]/30 bg-[var(--color-green-soft)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-green)]">
-          Geo-AI Decision Support &middot; Smart India Hackathon
-        </p>
-        <h1 className="max-w-3xl font-[var(--font-display)] text-4xl font-semibold leading-tight md:text-5xl">
-          See where soil is being lost, before the season proves it.
+      <section className="contour-field relative mx-auto max-w-6xl px-6 pb-16 pt-10 md:pt-16">
+        <p className="eyebrow mb-5">Geo-AI Decision Support &middot; Smart India Hackathon</p>
+        <h1 className="display-hero max-w-4xl text-5xl md:text-7xl">
+          See where soil is being lost, <span className="text-[var(--color-clay)]">before the season proves it.</span>
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
           Bhoomi-Drishti turns satellite and environmental observations into plot-level soil erosion risk,
           flood and drought indicators, and ranked conservation recommendations \u2014 validated by farmers on the ground.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#06110c] transition-transform hover:translate-y-[-1px]"
+            className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6] transition-transform hover:translate-y-[-1px]"
           >
             Explore Dashboard <ArrowRight className="h-4 w-4" />
           </Link>
@@ -62,20 +68,33 @@ export default function Landing() {
           </Link>
         </div>
       </section>
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="strata">
+          <span className="strata-topsoil" />
+          <span className="strata-subsoil" />
+          <span className="strata-clay" />
+          <span className="strata-bedrock" />
+        </div>
+        <div className="mt-1.5 flex justify-between text-[10px] text-[var(--color-text-faint)]">
+          <span>0 cm</span>
+          <span>soil profile read by the model, horizon by horizon</span>
+          <span>120 cm</span>
+        </div>
+      </div>
 
       {/* Problem statement */}
       <section className="border-y border-[var(--color-border-soft)] bg-[var(--color-surface)]/50">
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid gap-8 md:grid-cols-2">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-amber)]">The problem</p>
+              <p className="eyebrow text-[var(--color-amber)]">The problem</p>
               <p className="mt-3 text-lg leading-relaxed text-[var(--color-text-muted)]">
                 Soil erosion assessment across India is largely manual, slow and reactive \u2014 by the time
                 degradation is visible on the ground, topsoil and productivity have already been lost.
               </p>
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-green)]">The platform</p>
+              <p className="eyebrow text-[var(--color-green)]">The platform</p>
               <p className="mt-3 text-lg leading-relaxed text-[var(--color-text-muted)]">
                 Bhoomi-Drishti combines RUSLE modelling, hydrological flow analysis and rainfall/vegetation
                 trends into one visual, proactive workflow \u2014 from satellite signal to recommended action.
@@ -87,39 +106,67 @@ export default function Landing() {
 
       {/* Workflow */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="font-[var(--font-display)] text-2xl font-semibold">From signal to intervention</h2>
-        <p className="mt-2 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {WORKFLOW.map(({ icon: Icon, label, desc }, i) => (
-            <div key={label} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-              <div className="flex items-center gap-2 text-[var(--color-text-faint)]">
-                <Icon className="h-4 w-4 text-[var(--color-green)]" />
-                <span className="data-figure text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+        <h2 className="display-hero text-3xl md:text-4xl">From signal to intervention</h2>
+        <p className="mt-3 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
+
+        {/* connecting line sits behind the cards, only visible on larger screens where the grid is a straight row */}
+        <div className="relative mt-8">
+          <div className="pointer-events-none absolute left-0 right-0 top-9 hidden h-px bg-[var(--color-border)] lg:block" />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            {WORKFLOW.map(({ icon: Icon, label, desc }, i) => (
+              <div key={label} className="relative">
+                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+                  <div className="flex items-center gap-2 text-[var(--color-text-faint)]">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--color-green)]/40 bg-[var(--color-bg)] text-[var(--color-green)]">
+                      <Icon className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="data-figure text-[11px]">{String(i + 1).padStart(2, "0")}</span>
+                  </div>
+                  <p className="mt-3 text-sm font-semibold">{label}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
+                </div>
+                {/* arrow to the next step, hidden after the last card and on small screens where cards wrap */}
+                {i < WORKFLOW.length - 1 && (
+                  <span className="pointer-events-none absolute -right-5 top-7 z-10 hidden h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--color-green)] bg-[var(--color-bg)] text-[var(--color-green)] lg:flex">
+                    <ArrowRight className="h-5 w-5" strokeWidth={2.5} />
+                  </span>
+                )}
               </div>
-              <p className="mt-3 text-sm font-semibold">{label}</p>
-              <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* RUSLE explainer */}
       <section className="border-y border-[var(--color-border-soft)] bg-[var(--color-surface)]/50">
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <div className="grid items-center gap-8 md:grid-cols-2">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-clay)]">Transparent science</p>
-              <h3 className="mt-2 font-[var(--font-display)] text-xl font-semibold">The RUSLE model, shown in full</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              <p className="eyebrow text-[var(--color-clay)]">Transparent science</p>
+              <h3 className="display-hero mt-2 text-2xl md:text-3xl">The RUSLE model, shown in full</h3>
+              <p className="mt-4 text-base leading-relaxed text-[var(--color-text-muted)]">
                 Every soil-loss estimate is calculated with the Revised Universal Soil Loss Equation and
                 shown factor-by-factor \u2014 rainfall erosivity, soil erodibility, slope, cover management and
                 conservation practice \u2014 so nothing is a black box.
               </p>
             </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-center">
-              <p className="data-figure text-2xl font-semibold">A = R &times; K &times; LS &times; C &times; P</p>
-              <p className="mt-3 data-figure text-sm text-[var(--color-text-muted)]">850 &times; 0.32 &times; 1.8 &times; 0.35 &times; 0.7</p>
+            <div className="relative rounded-2xl border-2 border-[var(--color-clay)]/40 bg-[var(--color-surface)] p-8 text-center shadow-[0_0_40px_-12px_rgba(193,113,63,0.35)]">
+              <p className="data-figure text-3xl font-bold tracking-tight md:text-4xl">
+                A = R &times; K &times; LS &times; C &times; P
+              </p>
+              <p className="mt-4 data-figure text-lg text-[var(--color-text-muted)]">
+                850 &times; 0.32 &times; 1.8 &times; 0.35 &times; 0.7
+              </p>
               <p className="mt-1 text-xs text-[var(--color-text-faint)]">Estimated soil loss, in tonnes/hectare/year</p>
+
+              <div className="mt-6 grid grid-cols-5 gap-2 border-t border-[var(--color-border-soft)] pt-5">
+                {RUSLE_FACTORS.map(({ letter, name }) => (
+                  <div key={letter}>
+                    <p className="data-figure text-sm font-bold text-[var(--color-clay)]">{letter}</p>
+                    <p className="mt-1 text-[10px] leading-tight text-[var(--color-text-faint)]">{name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -127,7 +174,7 @@ export default function Landing() {
 
       {/* Capabilities */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="font-[var(--font-display)] text-2xl font-semibold">Built beyond erosion alone</h2>
+        <h2 className="display-hero text-3xl md:text-4xl">Built beyond erosion alone</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {CAPABILITIES.map((c) => (
             <div key={c.title} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
@@ -143,11 +190,11 @@ export default function Landing() {
         <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-10 text-center">
           <h3 className="font-[var(--font-display)] text-xl font-semibold">See it work on real Indian regions</h3>
           <p className="mx-auto mt-2 max-w-md text-sm text-[var(--color-text-faint)]">
-            Assam's flood-prone floodplains, Rajasthan's drought-stressed drylands, and four more \u2014 loaded with demo data, ready to explore.
+            Assam's flood-prone floodplains and Meghalaya's erosion-prone hill districts \u2014 loaded with demo data, ready to explore.
           </p>
           <Link
             to="/login"
-            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#06110c]"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6]"
           >
             Explore Dashboard <ArrowRight className="h-4 w-4" />
           </Link>

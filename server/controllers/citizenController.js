@@ -18,8 +18,8 @@ const memoryStore = [
   {
     _id: "seed-2",
     userName: "Sunita Devi",
-    region: "Bihar",
-    coordinates: [26.12, 85.4],
+    region: "Meghalaya",
+    coordinates: [25.57, 91.88],
     imageRef: null,
     description: "Visible topsoil loss after recent heavy rainfall",
     validationStatus: "Confirmed",

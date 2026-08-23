@@ -20,10 +20,10 @@ export default function Dashboard() {
     <AppLayout>
       <div className="mx-auto max-w-7xl space-y-6 p-4 md:p-6">
         <div>
-          <h1 className="font-[var(--font-display)] text-xl font-semibold">Overview</h1>
-          <p className="mt-1 text-xs text-[var(--color-text-faint)]">
+          <p className="eyebrow">
             {data ? `${data.region.name} \u2022 ${data.region.district}` : "Loading region summary..."}
           </p>
+          <h1 className="display-hero mt-1 text-2xl">Overview</h1>
         </div>
 
         {error && <ErrorState message={error} />}
@@ -33,12 +33,12 @@ export default function Dashboard() {
           <>
             {/* Summary cards */}
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-              <StatCard label="Estimated Soil Loss" value={data.rusle.soilLoss} unit="t/ha/yr" accent="text-[var(--color-clay)]" icon={Layers} />
-              <StatCard label="Erosion Risk" value={data.rusle.riskCategory} accent="text-[var(--color-clay)]" icon={AlertTriangle} />
-              <StatCard label="Flood Risk" value={data.floodRisk.category} accent="text-[var(--color-blue)]" icon={Droplets} />
-              <StatCard label="Drought Risk" value={data.droughtRisk.category} accent="text-[var(--color-amber)]" icon={Sun} />
-              <StatCard label="Vegetation Health" value={data.ndvi} unit="NDVI" accent="text-[var(--color-green)]" icon={Leaf} />
-              <StatCard label="Priority" value={zones.find((z) => z.id === selectedRegionId)?.priority || "\u2014"} />
+              <StatCard label="Estimated Soil Loss" value={data.rusle.soilLoss} unit="t/ha/yr" sublabel="Topsoil lost per hectare, per year" accent="text-[var(--color-clay)]" icon={Layers} />
+              <StatCard label="Erosion Risk" value={data.rusle.riskCategory} sublabel="Overall soil erosion severity" accent="text-[var(--color-clay)]" icon={AlertTriangle} />
+              <StatCard label="Flood Risk" value={data.floodRisk.category} sublabel="Chance of flooding this season" accent="text-[var(--color-blue)]" icon={Droplets} />
+              <StatCard label="Drought Risk" value={data.droughtRisk.category} sublabel="Chance of water shortage" accent="text-[var(--color-amber)]" icon={Sun} />
+              <StatCard label="Vegetation Health" value={data.ndvi} unit="NDVI" sublabel="Higher = healthier plant cover" accent="text-[var(--color-green)]" icon={Leaf} />
+              <StatCard label="Priority" value={zones.find((z) => z.id === selectedRegionId)?.priority || "\u2014"} sublabel="How urgently this region needs action" />
             </div>
 
             {/* Map */}

@@ -6,27 +6,27 @@
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-  --color-bg: #0a0e17;
-  --color-surface: #111826;
-  --color-surface-2: #172137;
-  --color-surface-3: #1d2941;
-  --color-border: #253251;
-  --color-border-soft: #1b2540;
-  --color-text: #e8ecf5;
-  --color-text-muted: #8f9ab3;
-  --color-text-faint: #5c667f;
+  --color-bg: #f4f1e4;
+  --color-surface: #fdfcf6;
+  --color-surface-2: #f5f1e1;
+  --color-surface-3: #eae3c9;
+  --color-border: #ddd3b0;
+  --color-border-soft: #e7e0c8;
+  --color-text: #2a2416;
+  --color-text-muted: #6b5f42;
+  --color-text-faint: #93855f;
 
-  --color-green: #3ea66d;
-  --color-green-soft: #1c3a2c;
-  --color-amber: #e0a63a;
-  --color-amber-soft: #3d301a;
-  --color-clay: #c1713f;
-  --color-clay-soft: #3a2519;
-  --color-red: #d1553a;
-  --color-red-soft: #3c211b;
-  --color-deepred: #a83a2c;
-  --color-blue: #4a93c9;
-  --color-blue-soft: #1a2c3a;
+  --color-green: #3f6b32;
+  --color-green-soft: #dde6c9;
+  --color-amber: #93691b;
+  --color-amber-soft: #efe0b3;
+  --color-clay: #8c451f;
+  --color-clay-soft: #ecd8c3;
+  --color-red: #7a3018;
+  --color-red-soft: #e9d3c4;
+  --color-deepred: #5c2412;
+  --color-blue: #2e5560;
+  --color-blue-soft: #d7e2e1;
 }
 
 html, body, #root {
@@ -42,10 +42,8 @@ body {
 
 ::selection {
   background-color: var(--color-green);
-  color: #06110c;
+  color: #fdfcf6;
 }
-
-/* subtle topographic contour texture used as a signature background motif */
 .contour-field {
   background-image:
     repeating-radial-gradient(circle at 18% 28%, transparent 0, transparent 26px, rgba(62, 166, 109, 0.06) 27px, transparent 28px, transparent 54px),
@@ -56,6 +54,39 @@ body {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+.display-hero {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+.strata {
+  display: flex;
+  height: 6px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.strata > span { flex: 1; }
+.strata-topsoil { background: var(--color-green); }
+.strata-subsoil { background: var(--color-amber); }
+.strata-clay { background: var(--color-clay); }
+.strata-bedrock { background: var(--color-red); }
+
+.strata-divider {
+  display: flex;
+  height: 3px;
+  width: 100%;
+}
+.strata-divider > span { flex: 1; }
 
 .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
 .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-surface-3); border-radius: 8px; }

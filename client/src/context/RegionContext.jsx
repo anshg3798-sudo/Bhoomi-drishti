@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import api from "../api/client";
+import demoRegions from "../components/demoRegions";
 
 const RegionContext = createContext(null);
+const ALLOWED_STATES = new Set(["Assam", "Meghalaya"]);
+function restrictToPilotStates(list) {
+  return (list || []).filter((r) => ALLOWED_STATES.has(r.name));
+}
 
 export function RegionProvider({ children }) {
   const [regions, setRegions] = useState([]);
@@ -11,9 +16,11 @@ export function RegionProvider({ children }) {
   const loadRegions = useCallback(async () => {
     try {
       const { data } = await api.get("/regions");
-      setRegions(data.regions || []);
+      const filtered = restrictToPilotStates(data.regions);
+      setRegions(filtered.length > 0 ? filtered : demoRegions);
     } catch (err) {
-      console.error("Failed to load regions", err);
+      console.error("Failed to load regions, using local demo dataset", err);
+      setRegions(demoRegions);
     }
   }, []);
 

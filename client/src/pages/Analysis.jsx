@@ -85,7 +85,7 @@ export default function Analysis() {
           <button
             onClick={runAnalysis}
             disabled={running}
-            className="ml-auto flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#06110c] disabled:opacity-60"
+            className="ml-auto flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6] disabled:opacity-60"
           >
             {running ? <Loader2 className="h-4 w-4 animate-spin" /> : <PlayCircle className="h-4 w-4" />}
             Run Analysis
