@@ -6,27 +6,27 @@
   --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-  --color-bg: #0a0e17;
-  --color-surface: #111826;
-  --color-surface-2: #172137;
-  --color-surface-3: #1d2941;
-  --color-border: #253251;
-  --color-border-soft: #1b2540;
-  --color-text: #e8ecf5;
-  --color-text-muted: #8f9ab3;
-  --color-text-faint: #5c667f;
+  --color-bg: #f6f3ec;
+  --color-surface: #fffdf9;
+  --color-surface-2: #f1ece0;
+  --color-surface-3: #e6ddc9;
+  --color-border: #ddd3ba;
+  --color-border-soft: #e8e0cd;
+  --color-text: #2b2820;
+  --color-text-muted: #6b6353;
+  --color-text-faint: #948c78;
 
-  --color-green: #3ea66d;
-  --color-green-soft: #1c3a2c;
-  --color-amber: #e0a63a;
-  --color-amber-soft: #3d301a;
-  --color-clay: #c1713f;
-  --color-clay-soft: #3a2519;
-  --color-red: #d1553a;
-  --color-red-soft: #3c211b;
-  --color-deepred: #a83a2c;
-  --color-blue: #4a93c9;
-  --color-blue-soft: #1a2c3a;
+  --color-green: #2f8f57;
+  --color-green-soft: #dcefe1;
+  --color-amber: #b8802a;
+  --color-amber-soft: #faf0da;
+  --color-clay: #a85a2e;
+  --color-clay-soft: #f5e6d8;
+  --color-red: #c14830;
+  --color-red-soft: #fae2dc;
+  --color-deepred: #96331f;
+  --color-blue: #3679a8;
+  --color-blue-soft: #e2eef7;
 }
 
 html, body, #root {
@@ -42,7 +42,7 @@ body {
 
 ::selection {
   background-color: var(--color-green);
-  color: #06110c;
+  color: #fffdf9;
 }
 
 /* subtle topographic contour texture used as a signature background motif */

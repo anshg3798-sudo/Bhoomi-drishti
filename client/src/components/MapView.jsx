@@ -123,7 +123,7 @@ export default function MapView({
             key={r._id}
             center={r.coordinates}
             radius={7}
-            pathOptions={{ color: "#e8ecf5", fillColor: "#111826", fillOpacity: 0.9, weight: 2 }}
+            pathOptions={{ color: "#2b2820", fillColor: "#fffdf9", fillOpacity: 0.9, weight: 2 }}
           >
             <Popup>
               <div className="min-w-[160px] space-y-1 font-sans text-[13px]">
