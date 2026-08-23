@@ -18,6 +18,13 @@ const CATEGORY_COLOR = {
   "Very High": "#d1553a",
   Critical: "#a83a2c"
 };
+const LEGEND_ITEMS = [
+  { label: "Low", color: "#3ea66d" },
+  { label: "Moderate", color: "#e0a63a" },
+  { label: "High", color: "#c1713f" },
+  { label: "Very High", color: "#d1553a" },
+  { label: "Critical", color: "#a83a2c" }
+];
 
 function scoreCategory(score) {
   if (score < 25) return "Low";
@@ -172,6 +179,19 @@ export default function MapView({
           </div>
         </div>
       )}
+
+      {/* Color legend so viewers know what each marker color means */}
+      <div className="absolute bottom-3 right-3 z-[1000] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/95 px-3 py-2 text-xs shadow-lg backdrop-blur">
+        <p className="mb-1.5 font-medium text-[var(--color-text-muted)]">Risk Level</p>
+        <div className="space-y-1">
+          {LEGEND_ITEMS.map(({ label, color }) => (
+            <div key={label} className="flex items-center gap-1.5">
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: color }} />
+              <span className="text-[var(--color-text-muted)]">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
