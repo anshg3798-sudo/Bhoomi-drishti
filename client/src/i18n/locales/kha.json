@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "overview": "Ïatylli", "analyze": "Wanroi ka Jaka", "riskMap": "Jingïatylli Bynta",
+    "priorityZones": "Jaka Kein Naduh", "recommendations": "Jingïalam",
+    "validation": "Jingïada Sepngi", "about": "Mynbha Bhoomi-Drishti"
+  },
+  "common": { "signIn": "Shong dei ïong", "logout": "Naba", "region": "Jaka", "language": "Ktien" },
+  "landing": {
+    "eyebrow": "Geo-AI Jingïalam · Smart India Hackathon",
+    "heroLine1": "Peit hangno ka pyrthei ka la sngew,",
+    "heroLine2": "haba ka por ka pynhikai.",
+    "heroDesc": "Ka Bhoomi-Drishti ka pynïaid ïa ki jingpeit satellite bad jingïm pyrthei sha ka jingkyrpang ka pyrthei, ki jingïalam kein bad kaba paw na ki khynnah shynrang.",
+    "exploreDashboard": "Peit ka Dashboard", "viewDemo": "Peit ka Jingwanroi Demo"
+  },
+  "auth": {
+    "signInTitle": "Shong ïong sha Bhoomi-Drishti", "signInSubtitle": "Geo-AI Platform Jingïatylli Pyrthei",
+    "continueFarmer": "Ïalam da ka Demo Account (Nongtrei)", "continueOfficer": "Ïalam da ka Demo Account (Officer)",
+    "orSignIn": "namar shong dei ïong", "email": "Email", "password": "Password", "signInButton": "Shong dei ïong",
+    "noAccount": "Nangta ka account?", "register": "Pynshong",
+    "createAccountTitle": "Pynshong ka account jong phi", "createAccountSubtitle": "Ïalam da ka demo account na ka sign-in page",
+    "fullName": "Bynta kyrteng", "iAmA": "Nga long u/ka", "roleFarmer": "nongtrei", "roleOfficer": "officer",
+    "createAccountButton": "Pynshong account", "haveAccount": "Don ka account?",
+    "loginErrorDefault": "Ka login ka la sfa. Wanroi ïa ka jingtip jong phi.",
+    "demoErrorDefault": "Nym lah ban pyndep ka demo session.", "registerErrorDefault": "Ka jingpynshong ka la sfa. Ïalam bad."
+  },
+  "about": {
+    "title": "Mynbha Bhoomi-Drishti",
+    "subtitle": "Geo-AI Platform Jingïatylli Jingkyrpang Pyrthei bad Jingïalam Jingsngew",
+    "problemLabel": "Ka Jingksuid", "problemText": "Ka India ka lyoh ïa kajan pyrthei naduh ka bynta ka jingkyrpang saw snem. Katba na mynta ka jingïatylli ka dei ban leit da lympung, bha shisha bad hapoh jingjop, kumta ka jingïalam ka la don dei mynno ka jingkyrpang ka la sngew hapdeng ka pyrthei.",
+    "solutionLabel": "Ka Jingsngew", "solutionText": "Ka Bhoomi-Drishti ka pynïaid ïa ka jingpeit satellite bad jingïm pyrthei bad ka RUSLE model, jingïatylli jingbam um, jingïalam kein bad ki jingïalam sngewbha — namar ka pynla ïa kito ki rong na ki khynnah shynrang.",
+    "usersLabel": "Ki Nongpyndep",
+    "users": ["Ki Nongtrei", "Ki Committee Watershed", "Ki Department Kynthei Sorkar", "Ki Department Jingïatylli Pyrthei", "Ki NGO"],
+    "impactLabel": "Ka Jingpynïaid",
+    "impact": ["Jingïatylli ba khynnud", "Jingïalam ha kata kaba sngew", "Jingïalam bha ha ki jaka", "Jingsngew bha ïa ka budget", "Jingïalam khynnah shynrang"],
+    "footer": "Prototype ba la thoh na ka Smart India Hackathon 2026. Ki jingdon bad ki scenario ki long ki demo dataset."
+  },
+  "dashboard": {
+    "loadingRegion": "Ïatylli jaka...", "title": "Ïatylli",
+    "acquiringData": "Wanroi jingïm pyrthei...",
+    "statSoilLoss": "Jingkyrpang Pyrthei", "statSoilLossSub": "Naduh hectare, naduh snem",
+    "statErosionRisk": "Jingïalam Jingkyrpang", "statErosionRiskSub": "Ka bynta baroh",
+    "statFloodRisk": "Jingïalam Um", "statFloodRiskSub": "Ka jingpang ban long um kata por",
+    "statDroughtRisk": "Jingïalam Khyndew", "statDroughtRiskSub": "Ka jingpang ban khlem um",
+    "statVegHealth": "Kaba Bha ki Dieng", "statVegHealthSub": "Kaba baroh = kaba bha",
+    "statPriority": "Kein Naduh", "statPrioritySub": "Ka jingjrong ban leit sha ka jaka",
+    "rainfallNdviTitle": "Jingslem Slap bad NDVI", "rainfallNdviSub": "Ki tylli por kaba mynta",
+    "forecastTitle": "Jingïalam Jingkyrpang", "forecastConfidence": "Jingkren",
+    "forecastSub": "Hapoh → mynta → kaba iarap por", "lastUpdated": "La update", "confidenceNote": "Ka jingkren ka long ka model forecast"
+  },
+  "analysis": {
+    "title": "Wanroi ka Jaka", "subtitle": "Pyndep ka RUSLE + jingbam um + forecast + jingïalam",
+    "region": "Jaka", "dateRange": "Por", "last6Seasons": "Tylli 6 por (demo)", "last12Months": "Tylli 12 bnai (demo)", "last3Years": "Tylli 3 snem (demo)",
+    "runAnalysis": "Pyndep Wanroi",
+    "stage1": "Wanroi jingïm...", "stage2": "Ïarap RUSLE...", "stage3": "Wanroi jingbam um...", "stage4": "Pynshong forecast...", "stage5": "Pynshong jingïalam...",
+    "errorDefault": "Ka wanroi ka la sfa. Ïalam bad.",
+    "rusleFactorTitle": "Ki Factor RUSLE", "forecastTitle": "Forecast", "hydroPriorityTitle": "Kein Jingbam Um",
+    "flowAccumulation": "Jingbam um:", "floodRiskFactors": "Ki Factor Jingïalam Um", "conservationTitle": "Ki Jingïalam Jingsngew",
+    "emptyPrompt": "Peit ka jaka bad click \"Pyndep Wanroi\"."
+  },
+  "riskMap": { "title": "Jingïatylli Bynta", "subtitle": "Click ïa ka jaka ban peit ka jingkyrpang, jingïalam um bad khyndew.", "loading": "Wanroi jingïm map..." },
+  "priorityZones": {
+    "title": "Jaka Kein Naduh", "subtitle": "Ki jaka ki long kein da ka jingkyrpang, um bad khyndew", "loading": "Ïarap ki jaka...",
+    "filterAll": "Baroh", "sortBy": "Ïarap:", "sortRank": "Kein", "sortSoilLoss": "Jingkyrpang",
+    "colRank": "Kein", "colRegion": "Jaka", "colSoilLoss": "Jingkyrpang", "colErosion": "Jingkyrpang", "colFlood": "Um", "colDrought": "Khyndew", "colPriority": "Kein Naduh"
+  },
+  "recommendations": { "title": "Ki Jingïalam Jingsngew", "subtitle": "Kumno bad kaei, kein da ka jingjrong", "loading": "Pynshong jingïalam..." },
+  "citizenValidation": {
+    "title": "Jingïada Sepngi", "subtitle": "Ki jingpeit pyrthei ki pynhikai ïa ka forecast satellite",
+    "submitTitle": "Pynshong Report", "region": "Jaka", "fieldPhoto": "Kaba photo pyrthei", "choosePhoto": "Peit photo (demo bru)",
+    "description": "Jingïalam (khlem jingjrong)", "descriptionPlaceholder": "kum: jingkyrpang ha kylla pyrthei",
+    "submitButton": "Pynshong Report", "loading": "Wanroi ki report...",
+    "emptyTitle": "Nangta report", "emptyDesc": "Ki photo ki la pynshong ki lah pynïaid hangne bad ha map.",
+    "farmerReport": "Report Nongtrei", "confidenceBefore": "Jingkren satellite:", "confidenceAfter": "Ha jingïada:",
+    "confirmVisible": "Pynhikai jingkyrpang la peit", "notVisible": "Nym peit",
+    "loadErrorDefault": "Nym lah wanroi ki report.", "submitErrorDefault": "Nym lah pynshong ka report.", "validateErrorDefault": "Nym lah update ka jingïada."
+  },
+  "risk": { "Very Low": "Kaba Baroh Neh", "Low": "Neh", "Moderate": "Mynla", "High": "Baroh", "Very High": "Kaba Baroh Sngi", "Critical": "Kaba Jrong" },
+  "rusle": {
+    "title": "RUSLE Jingkyrpang", "formulaNote": "A = R × K × LS × C × P · demo",
+    "estimatedSoilLoss": "Jingkyrpang Pyrthei", "factorR": "Jingslem Slap", "factorK": "Jingkyrpang Pyrthei",
+    "factorLS": "Bynta bad Jingjrong Lynti", "factorC": "Jingïalam Dieng", "factorP": "Jingsngew"
+  },
+  "recommendationCard": { "priority": "kein", "reason": "Kaei:", "expectedImpact": "Jingpynïaid:", "expectedReduction": "Jingneh Jingkyrpang" },
+  "badges": { "liveData": "Live Satellite", "demoData": "Demo", "dataSource": "Jaka na:", "sourceSimNote": "(demo prototype)" },
+  "states": { "loadingDefault": "Wanroi...", "emptyDefault": "Nangta baei hangne", "errorDefault": "Kaba sfa. Ïalam bad." }
+}
