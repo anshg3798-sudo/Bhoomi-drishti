@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CheckCircle2, Sparkles, BookOpen } from "lucide-react";
 
 const PRIORITY_STYLE = {
@@ -12,6 +13,7 @@ const PRIORITY_BORDER = {
 };
 
 export function RecommendationCard({ rec }) {
+  const { t } = useTranslation();
   return (
     <div
       className={`rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 border-l-4 ${
@@ -27,15 +29,15 @@ export function RecommendationCard({ rec }) {
           </div>
         </div>
         <span className={`shrink-0 rounded-md px-2 py-0.5 text-[11px] font-semibold ${PRIORITY_STYLE[rec.priority] || ""}`}>
-          {rec.priority} priority
+          {t(`risk.${rec.priority}`, rec.priority)} {t("recommendationCard.priority")}
         </span>
       </div>
 
-      <p className="mt-3 text-xs text-[var(--color-text-muted)]"><span className="text-[var(--color-text-faint)]">Reason: </span>{rec.reason}</p>
-      <p className="mt-1.5 text-xs text-[var(--color-text-muted)]"><span className="text-[var(--color-text-faint)]">Expected impact: </span>{rec.expectedImpact}</p>
+      <p className="mt-3 text-xs text-[var(--color-text-muted)]"><span className="text-[var(--color-text-faint)]">{t("recommendationCard.reason")} </span>{rec.reason}</p>
+      <p className="mt-1.5 text-xs text-[var(--color-text-muted)]"><span className="text-[var(--color-text-faint)]">{t("recommendationCard.expectedImpact")} </span>{rec.expectedImpact}</p>
 
       <div className="mt-3 flex items-center justify-between border-t border-[var(--color-border-soft)] pt-2.5">
-        <span className="text-[11px] text-[var(--color-text-faint)]">Expected soil-loss reduction</span>
+        <span className="text-[11px] text-[var(--color-text-faint)]">{t("recommendationCard.expectedReduction")}</span>
         <span className="data-figure text-sm font-semibold text-[var(--color-green)]">{rec.expectedSoilLossReduction}</span>
       </div>
     </div>

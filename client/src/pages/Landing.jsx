@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Mountain, ArrowRight, Satellite, Calculator, Waves, Sprout, Camera, TrendingUp } from "lucide-react";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 const WORKFLOW = [
   { icon: Satellite, label: "Satellite & Environmental Data", desc: "Sentinel-1/2, SRTM, CHIRPS, SoilGrids" },
@@ -25,6 +27,7 @@ const RUSLE_FACTORS = [
 ];
 
 export default function Landing() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
       {/* Nav */}
@@ -35,36 +38,38 @@ export default function Landing() {
           </div>
           <span className="font-[var(--font-display)] text-base font-semibold">Bhoomi-Drishti</span>
         </div>
-        <Link
-          to="/login"
-          className="rounded-lg border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-green)]/40 hover:text-[var(--color-text)]"
-        >
-          Sign in
-        </Link>
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
+          <Link
+            to="/login"
+            className="rounded-lg border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-green)]/40 hover:text-[var(--color-text)]"
+          >
+            {t("common.signIn")}
+          </Link>
+        </div>
       </header>
 
       {/* Hero */}
       <section className="contour-field relative mx-auto max-w-6xl px-6 pb-16 pt-10 md:pt-16">
-        <p className="eyebrow mb-5">Geo-AI Decision Support &middot; Smart India Hackathon</p>
+        <p className="eyebrow mb-5">{t("landing.eyebrow")}</p>
         <h1 className="display-hero max-w-4xl text-5xl md:text-7xl">
-          See where soil is being lost, <span className="text-[var(--color-clay)]">before the season proves it.</span>
+          {t("landing.heroLine1")} <span className="text-[var(--color-clay)]">{t("landing.heroLine2")}</span>
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
-          Bhoomi-Drishti turns satellite and environmental observations into plot-level soil erosion risk,
-          flood and drought indicators, and ranked conservation recommendations \u2014 validated by farmers on the ground.
+          {t("landing.heroDesc")}
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             to="/login"
             className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6] transition-transform hover:translate-y-[-1px]"
           >
-            Explore Dashboard <ArrowRight className="h-4 w-4" />
+            {t("landing.exploreDashboard")} <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             to="/login?demo=analysis"
             className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-5 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:border-[var(--color-text-muted)]"
           >
-            View Demo Analysis
+            {t("landing.viewDemo")}
           </Link>
         </div>
       </section>
@@ -109,7 +114,6 @@ export default function Landing() {
         <h2 className="display-hero text-3xl md:text-4xl">From signal to intervention</h2>
         <p className="mt-3 text-sm text-[var(--color-text-faint)]">The six-stage pipeline behind every risk score you see.</p>
 
-        {/* connecting line sits behind the cards, only visible on larger screens where the grid is a straight row */}
         <div className="relative mt-8">
           <div className="pointer-events-none absolute left-0 right-0 top-9 hidden h-px bg-[var(--color-border)] lg:block" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
@@ -125,7 +129,6 @@ export default function Landing() {
                   <p className="mt-3 text-sm font-semibold">{label}</p>
                   <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-faint)]">{desc}</p>
                 </div>
-                {/* arrow to the next step, hidden after the last card and on small screens where cards wrap */}
                 {i < WORKFLOW.length - 1 && (
                   <span className="pointer-events-none absolute -right-5 top-7 z-10 hidden h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--color-green)] bg-[var(--color-bg)] text-[var(--color-green)] lg:flex">
                     <ArrowRight className="h-5 w-5" strokeWidth={2.5} />
@@ -196,7 +199,7 @@ export default function Landing() {
             to="/login"
             className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6]"
           >
-            Explore Dashboard <ArrowRight className="h-4 w-4" />
+            {t("landing.exploreDashboard")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>

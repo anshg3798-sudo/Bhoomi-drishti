@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import AppLayout from "../components/AppLayout";
 import { RecommendationCard, ExplanationPanel } from "../components/RecommendationCard";
 import { LoadingState, ErrorState } from "../components/States";
@@ -5,6 +6,7 @@ import { useRegion } from "../context/RegionContext";
 import { useAnalysis } from "../hooks/useAnalysis";
 
 export default function Recommendations() {
+  const { t } = useTranslation();
   const { regions, selectedRegionId, setSelectedRegionId } = useRegion();
   const { data, loading, error } = useAnalysis(selectedRegionId);
 
@@ -13,8 +15,8 @@ export default function Recommendations() {
       <div className="mx-auto max-w-5xl space-y-6 p-4 md:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h1 className="font-[var(--font-display)] text-xl font-semibold">Conservation Recommendations</h1>
-            <p className="mt-1 text-xs text-[var(--color-text-faint)]">What should be done, and why, ranked by priority</p>
+            <h1 className="font-[var(--font-display)] text-xl font-semibold">{t("recommendations.title")}</h1>
+            <p className="mt-1 text-xs text-[var(--color-text-faint)]">{t("recommendations.subtitle")}</p>
           </div>
           <select
             value={selectedRegionId}
@@ -27,7 +29,7 @@ export default function Recommendations() {
           </select>
         </div>
 
-        {loading && !data && <LoadingState label="Generating recommendations..." />}
+        {loading && !data && <LoadingState label={t("recommendations.loading")} />}
         {error && <ErrorState message={error} />}
 
         {data && (

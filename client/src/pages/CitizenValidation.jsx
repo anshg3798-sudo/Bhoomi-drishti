@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Camera, MapPin, Loader2, CheckCircle2, XCircle, Clock } from "lucide-react";
 import AppLayout from "../components/AppLayout";
 import { LoadingState, ErrorState, EmptyState } from "../components/States";
@@ -21,6 +22,7 @@ const STATUS_STYLE = {
 };
 
 export default function CitizenValidation() {
+  const { t } = useTranslation();
   const { regions, selectedRegionId } = useRegion();
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +38,7 @@ export default function CitizenValidation() {
       const { data } = await api.get("/citizen-reports");
       setReports(data.reports || []);
     } catch (err) {
-      setError(err?.response?.data?.message || "Failed to load citizen reports.");
+      setError(err?.response?.data?.message || t("citizenValidation.loadErrorDefault"));
     } finally {
       setLoading(false);
     }
@@ -61,7 +63,7 @@ export default function CitizenValidation() {
       setForm((f) => ({ ...f, description: "", imageName: "" }));
       await loadReports();
     } catch (err) {
-      setError(err?.response?.data?.message || "Could not submit report.");
+      setError(err?.response?.data?.message || t("citizenValidation.submitErrorDefault"));
     } finally {
       setSubmitting(false);
     }
@@ -73,7 +75,7 @@ export default function CitizenValidation() {
       await api.patch(`/citizen-reports/${id}/validate`, { status });
       await loadReports();
     } catch (err) {
-      setError(err?.response?.data?.message || "Could not update validation status.");
+      setError(err?.response?.data?.message || t("citizenValidation.validateErrorDefault"));
     } finally {
       setValidatingId(null);
     }
@@ -83,19 +85,19 @@ export default function CitizenValidation() {
     <AppLayout>
       <div className="mx-auto max-w-5xl space-y-6 p-4 md:p-6">
         <div>
-          <h1 className="font-[var(--font-display)] text-xl font-semibold">Citizen Validation</h1>
-          <p className="mt-1 text-xs text-[var(--color-text-faint)]">Ground observations validate what the satellite predicts</p>
+          <h1 className="font-[var(--font-display)] text-xl font-semibold">{t("citizenValidation.title")}</h1>
+          <p className="mt-1 text-xs text-[var(--color-text-faint)]">{t("citizenValidation.subtitle")}</p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[340px_1fr]">
           {/* Submission form */}
           <form onSubmit={handleSubmit} className="h-fit rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
             <div className="flex items-center gap-2 text-sm font-semibold">
-              <Camera className="h-4 w-4 text-[var(--color-green)]" /> Submit Field Report
+              <Camera className="h-4 w-4 text-[var(--color-green)]" /> {t("citizenValidation.submitTitle")}
             </div>
             <div className="mt-4 space-y-3">
               <div>
-                <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">Region</label>
+                <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">{t("citizenValidation.region")}</label>
                 <select
                   value={form.region}
                   onChange={(e) => setForm((f) => ({ ...f, region: e.target.value }))}
@@ -107,10 +109,10 @@ export default function CitizenValidation() {
                 </select>
               </div>
               <div>
-                <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">Field photograph</label>
+                <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">{t("citizenValidation.fieldPhoto")}</label>
                 <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-[var(--color-border)] px-3 py-4 text-xs text-[var(--color-text-faint)] hover:border-[var(--color-green)]/40">
                   <Camera className="h-4 w-4" />
-                  {form.imageName || "Choose photo (demo reference only)"}
+                  {form.imageName || t("citizenValidation.choosePhoto")}
                   <input
                     type="file" accept="image/*" className="hidden"
                     onChange={(e) => setForm((f) => ({ ...f, imageName: e.target.files?.[0]?.name || "" }))}
@@ -118,12 +120,12 @@ export default function CitizenValidation() {
                 </label>
               </div>
               <div>
-                <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">Description (optional)</label>
+                <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">{t("citizenValidation.description")}</label>
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
                   rows={3}
-                  placeholder="e.g. Visible gully erosion near the field boundary"
+                  placeholder={t("citizenValidation.descriptionPlaceholder")}
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] px-3 py-2 text-sm"
                 />
               </div>
@@ -132,16 +134,16 @@ export default function CitizenValidation() {
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-green)] px-4 py-2.5 text-sm font-semibold text-[#fdfcf6] disabled:opacity-60"
               >
                 {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
-                Submit Report
+                {t("citizenValidation.submitButton")}
               </button>
             </div>
           </form>
 
           {/* Reports feed */}
           <div className="space-y-3">
-            {loading && <LoadingState label="Loading citizen reports..." />}
+            {loading && <LoadingState label={t("citizenValidation.loading")} />}
             {error && <ErrorState message={error} />}
-            {!loading && reports.length === 0 && <EmptyState title="No field reports yet" description="Submitted photos will appear here and on the map." icon={Camera} />}
+            {!loading && reports.length === 0 && <EmptyState title={t("citizenValidation.emptyTitle")} description={t("citizenValidation.emptyDesc")} icon={Camera} />}
 
             {reports.map((r) => {
               const status = STATUS_STYLE[r.validationStatus] || STATUS_STYLE.Pending;
@@ -150,7 +152,7 @@ export default function CitizenValidation() {
                 <div key={r._id} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-sm font-semibold">{r.userName || "Farmer Report"}</p>
+                      <p className="text-sm font-semibold">{r.userName || t("citizenValidation.farmerReport")}</p>
                       <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[var(--color-text-faint)]">
                         <MapPin className="h-3 w-3" /> {r.region} &middot; {timeAgo(r.createdAt)}
                       </p>
@@ -163,12 +165,12 @@ export default function CitizenValidation() {
 
                   <div className="mt-3 flex flex-wrap items-center gap-4 border-t border-[var(--color-border-soft)] pt-3 text-[11px]">
                     <div>
-                      <span className="text-[var(--color-text-faint)]">Satellite prediction confidence: </span>
+                      <span className="text-[var(--color-text-faint)]">{t("citizenValidation.confidenceBefore")} </span>
                       <span className="data-figure text-[var(--color-text-muted)]">{r.modelConfidenceBefore}%</span>
                     </div>
                     {r.modelConfidenceAfter != null && (
                       <div>
-                        <span className="text-[var(--color-text-faint)]">After ground validation: </span>
+                        <span className="text-[var(--color-text-faint)]">{t("citizenValidation.confidenceAfter")} </span>
                         <span className="data-figure font-semibold text-[var(--color-green)]">{r.modelConfidenceAfter}% &uarr;</span>
                       </div>
                     )}
@@ -181,14 +183,14 @@ export default function CitizenValidation() {
                         disabled={validatingId === r._id}
                         className="flex items-center gap-1.5 rounded-lg bg-[var(--color-green-soft)] px-3 py-1.5 text-xs font-semibold text-[var(--color-green)]"
                       >
-                        <CheckCircle2 className="h-3.5 w-3.5" /> Confirm erosion visible
+                        <CheckCircle2 className="h-3.5 w-3.5" /> {t("citizenValidation.confirmVisible")}
                       </button>
                       <button
                         onClick={() => handleValidate(r._id, "Rejected")}
                         disabled={validatingId === r._id}
                         className="flex items-center gap-1.5 rounded-lg bg-[var(--color-red-soft)] px-3 py-1.5 text-xs font-semibold text-[var(--color-red)]"
                       >
-                        <XCircle className="h-3.5 w-3.5" /> Not visible
+                        <XCircle className="h-3.5 w-3.5" /> {t("citizenValidation.notVisible")}
                       </button>
                     </div>
                   )}

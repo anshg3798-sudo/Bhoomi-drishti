@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard, SearchCode, Map as MapIcon, ListOrdered, Sprout,
   Camera, Info, LogOut, Mountain
@@ -7,21 +8,23 @@ import { useAuth } from "../context/AuthContext";
 import { useRegion } from "../context/RegionContext";
 import { DataModeBadge } from "./Badges";
 import RegionPicker from "./RegionPicker";
-
-const NAV_ITEMS = [
-  { to: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { to: "/analysis", label: "Analyze Region", icon: SearchCode },
-  { to: "/risk-map", label: "Risk Map", icon: MapIcon },
-  { to: "/priority-zones", label: "Priority Zones", icon: ListOrdered },
-  { to: "/recommendations", label: "Recommendations", icon: Sprout },
-  { to: "/validation", label: "Citizen Validation", icon: Camera },
-  { to: "/about", label: "About Bhoomi-Drishti", icon: Info }
-];
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function AppLayout({ children }) {
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
   const { regions, selectedRegionId, setSelectedRegionId, health } = useRegion();
   const navigate = useNavigate();
+
+  const NAV_ITEMS = [
+    { to: "/dashboard", label: t("nav.overview"), icon: LayoutDashboard },
+    { to: "/analysis", label: t("nav.analyze"), icon: SearchCode },
+    { to: "/risk-map", label: t("nav.riskMap"), icon: MapIcon },
+    { to: "/priority-zones", label: t("nav.priorityZones"), icon: ListOrdered },
+    { to: "/recommendations", label: t("nav.recommendations"), icon: Sprout },
+    { to: "/validation", label: t("nav.validation"), icon: Camera },
+    { to: "/about", label: t("nav.about"), icon: Info }
+  ];
 
   function handleLogout() {
     logout();
@@ -70,7 +73,7 @@ export default function AppLayout({ children }) {
             <button
               onClick={handleLogout}
               className="rounded-md p-1.5 text-[var(--color-text-faint)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-red)]"
-              title="Log out"
+              title={t("common.logout")}
             >
               <LogOut className="h-4 w-4" />
             </button>
@@ -83,7 +86,7 @@ export default function AppLayout({ children }) {
         {/* Topbar */}
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-[var(--color-border-soft)] bg-[var(--color-surface)]/70 px-4 backdrop-blur md:px-6">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-[var(--color-text-faint)] hidden sm:inline">Region</span>
+            <span className="text-xs text-[var(--color-text-faint)] hidden sm:inline">{t("common.region")}</span>
             <RegionPicker
               regions={regions}
               selectedRegionId={selectedRegionId}
@@ -92,6 +95,7 @@ export default function AppLayout({ children }) {
           </div>
 
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <DataModeBadge mode={health?.dataMode || "DEMO"} />
             <div className="hidden h-8 w-8 items-center justify-center rounded-full bg-[var(--color-surface-2)] text-xs font-semibold sm:flex">
               {(user?.name || "U").slice(0, 1).toUpperCase()}
