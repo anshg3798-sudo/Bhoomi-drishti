@@ -91,7 +91,7 @@ export default function PriorityZones() {
                     >
                       <td className="data-figure px-4 py-3 text-[var(--color-text-faint)]">{z.rank}</td>
                       <td className="px-4 py-3 font-medium">
-                        {z.name}
+                        {z.district || z.name}{z.district ? `, ${z.name}` : ""}
                         {z.priorityReason && <span className="ml-2 text-[10px] text-[var(--color-text-faint)]">({z.priorityReason})</span>}
                       </td>
                       <td className="data-figure px-4 py-3 text-[var(--color-text-muted)]">{z.soilLoss} t/ha/yr</td>

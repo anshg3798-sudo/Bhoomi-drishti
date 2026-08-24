@@ -18,9 +18,7 @@ import About from "./pages/About";
 function withProviders(children) {
   return (
     <RegionProvider>
-      <ProtectedRoute>
-        <ErrorBoundary>{children}</ErrorBoundary>
-      </ProtectedRoute>
+      <ProtectedRoute><ErrorBoundary>{children}</ErrorBoundary></ProtectedRoute>
     </RegionProvider>
   );
 }

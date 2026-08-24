@@ -8,7 +8,7 @@ export default function Register() {
   const { t } = useTranslation();
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", password: "", role: "farmer" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +19,7 @@ export default function Register() {
     setError(null);
     setLoading(true);
     try {
-      await register(form.name, form.email, form.password, form.role);
+      await register(form.name, form.email, form.password);
       navigate("/dashboard");
     } catch (err) {
       setError(err?.response?.data?.message || t("auth.registerErrorDefault"));
@@ -55,21 +55,6 @@ export default function Register() {
               <label className="mb-1 block text-xs text-[var(--color-text-faint)]">{t("auth.password")}</label>
               <input type="password" required value={form.password} onChange={(e) => update("password", e.target.value)}
                 className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-green)]/40" />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs text-[var(--color-text-faint)]">{t("auth.iAmA")}</label>
-              <div className="grid grid-cols-2 gap-2">
-                {["farmer", "officer"].map((role) => (
-                  <button
-                    type="button" key={role} onClick={() => update("role", role)}
-                    className={`rounded-lg border px-3 py-2 text-sm capitalize ${
-                      form.role === role ? "border-[var(--color-green)] bg-[var(--color-green-soft)] text-[var(--color-green)]" : "border-[var(--color-border)] text-[var(--color-text-muted)]"
-                    }`}
-                  >
-                    {role === "farmer" ? t("auth.roleFarmer") : t("auth.roleOfficer")}
-                  </button>
-                ))}
-              </div>
             </div>
             {error && <p className="text-xs text-[var(--color-red)]">{error}</p>}
             <button

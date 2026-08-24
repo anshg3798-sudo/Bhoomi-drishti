@@ -6,8 +6,15 @@ const CitizenReportSchema = new mongoose.Schema(
     userName: String,
     coordinates: [Number],
     region: { type: String, required: true },
+    district: String,
+    observationType: String,
     imageRef: { type: String, default: null },
     description: { type: String, default: "" },
+    assessment: {
+      status: String,
+      summary: String,
+      actions: [String]
+    },
     validationStatus: { type: String, enum: ["Pending", "Confirmed", "Rejected"], default: "Pending" },
     modelConfidenceBefore: Number,
     modelConfidenceAfter: Number

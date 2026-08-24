@@ -24,7 +24,7 @@ export default function Recommendations() {
             className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] px-3 py-2 text-sm"
           >
             {(regions.length ? regions : [{ id: selectedRegionId, name: selectedRegionId }]).map((r) => (
-              <option key={r.id} value={r.id}>{r.name}</option>
+              <option key={r.id} value={r.id}>{r.district || r.name}{r.district ? `, ${r.name}` : ""}</option>
             ))}
           </select>
         </div>

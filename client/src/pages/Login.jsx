@@ -12,7 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [demoLoading, setDemoLoading] = useState(null);
+  const [demoLoading, setDemoLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -28,16 +28,16 @@ export default function Login() {
     }
   }
 
-  async function handleDemo(role) {
+  async function handleDemo() {
     setError(null);
-    setDemoLoading(role);
+    setDemoLoading(true);
     try {
-      await demoLogin(role);
+      await demoLogin("farmer");
       navigate("/dashboard");
     } catch (err) {
       setError(err?.response?.data?.message || t("auth.demoErrorDefault"));
     } finally {
-      setDemoLoading(null);
+      setDemoLoading(false);
     }
   }
 
@@ -55,20 +55,12 @@ export default function Login() {
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
           <div className="space-y-2">
             <button
-              onClick={() => handleDemo("farmer")}
-              disabled={demoLoading !== null}
+              onClick={handleDemo}
+              disabled={demoLoading}
               className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-green)] px-4 py-2.5 text-sm font-semibold text-[#fdfcf6] disabled:opacity-60"
             >
-              {demoLoading === "farmer" && <Loader2 className="h-4 w-4 animate-spin" />}
-              {t("auth.continueFarmer")}
-            </button>
-            <button
-              onClick={() => handleDemo("officer")}
-              disabled={demoLoading !== null}
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-[var(--color-border)] px-4 py-2.5 text-sm font-semibold hover:border-[var(--color-green)]/40 disabled:opacity-60"
-            >
-              {demoLoading === "officer" && <Loader2 className="h-4 w-4 animate-spin" />}
-              {t("auth.continueOfficer")}
+              {demoLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+              Explore demo overview
             </button>
           </div>
 

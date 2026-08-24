@@ -95,7 +95,7 @@ export default function MapView({
           >
             <Popup>
               <div className="min-w-[180px] space-y-1.5 font-sans text-[13px]">
-                <p className="font-semibold text-slate-900">Selected Region: {z.name}</p>
+                <p className="font-semibold text-slate-900">Selected district: {z.district || z.name}{z.district ? `, ${z.name}` : ""}</p>
                 <p className="text-slate-600">Estimated Soil Loss: {z.soilLoss} t/ha/year</p>
                 <p className="text-slate-600">Erosion Risk: {z.erosionRisk}</p>
                 <p className="text-slate-600">Flood Risk: {z.floodRisk}</p>
@@ -129,7 +129,7 @@ export default function MapView({
           >
             <Popup>
               <div className="min-w-[160px] space-y-1 font-sans text-[13px]">
-                <p className="font-semibold text-slate-900">Farmer Report</p>
+                <p className="font-semibold text-slate-900">Land observation</p>
                 <p className="text-slate-600">{r.description || "No description provided"}</p>
                 <p className="text-slate-500">{r.region}</p>
               </div>

@@ -1,11 +1,11 @@
 {
   "nav": {
     "overview": "Overview",
-    "analyze": "Analyze Region",
+    "analyze": "Analyze District",
     "riskMap": "Risk Map",
     "priorityZones": "Priority Zones",
     "recommendations": "Recommendations",
-    "validation": "Citizen Validation",
+    "validation": "Land Observations",
     "about": "About Bhoomi-Drishti"
   },
   "common": {
@@ -89,9 +89,9 @@
     "confidenceNote": "Analysis confidence reflects the forecast model only"
   },
   "analysis": {
-    "title": "Analyze Region",
+    "title": "Analyze District",
     "subtitle": "Run a full RUSLE + hydrology + forecast + recommendation pass",
-    "region": "Region",
+    "region": "District",
     "dateRange": "Date / time range",
     "last6Seasons": "Last 6 seasons (demo)",
     "last12Months": "Last 12 months (demo)",
@@ -109,7 +109,7 @@
     "flowAccumulation": "Flow accumulation:",
     "floodRiskFactors": "Flood risk factors",
     "conservationTitle": "Conservation Recommendations",
-    "emptyPrompt": "Select a region and click \"Run Analysis\" to generate a full report."
+    "emptyPrompt": "Select a district and click \"Run Analysis\" to generate a full report."
   },
   "riskMap": {
     "title": "Risk Map",
@@ -125,7 +125,7 @@
     "sortRank": "Rank",
     "sortSoilLoss": "Soil loss",
     "colRank": "Rank",
-    "colRegion": "Region",
+    "colRegion": "District",
     "colSoilLoss": "Soil Loss",
     "colErosion": "Erosion",
     "colFlood": "Flood",
@@ -138,10 +138,10 @@
     "loading": "Generating recommendations..."
   },
   "citizenValidation": {
-    "title": "Citizen Validation",
-    "subtitle": "Ground observations validate what the satellite predicts",
-    "submitTitle": "Submit Field Report",
-    "region": "Region",
+    "title": "Geotagged Land Observations",
+    "subtitle": "Share field evidence and receive location-aware soil protection guidance",
+    "submitTitle": "Add a land observation",
+    "region": "District",
     "fieldPhoto": "Field photograph",
     "choosePhoto": "Choose photo (demo reference only)",
     "description": "Description (optional)",

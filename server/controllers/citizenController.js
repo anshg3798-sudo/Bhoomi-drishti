@@ -30,20 +30,27 @@ const memoryStore = [
 ];
 
 function submitReport(req, res) {
-  const { region, latitude, longitude, description, userName } = req.body;
-  if (!region || latitude === undefined || longitude === undefined) {
-    return res.status(400).json({ success: false, message: "region, latitude and longitude are required" });
+  const { region, district, latitude, longitude, description, observationType } = req.body;
+  if (latitude === undefined || longitude === undefined) {
+    return res.status(400).json({ success: false, message: "live latitude and longitude are required" });
   }
 
   const baseConfidence = 70 + Math.round(Math.random() * 10); // demo baseline before ground validation
 
   const reportData = {
-    userName: userName || req.user?.name || "Anonymous Farmer",
+    userName: "Land observation",
     user: req.user?.id && req.user.id !== "demo-farmer" && req.user.id !== "demo-officer" ? req.user.id : undefined,
-    region,
+    region: region || "Live geotag",
+    district: district || undefined,
     coordinates: [Number(latitude), Number(longitude)],
     imageRef: req.body.imageRef || null,
     description: description || "",
+    observationType: observationType || "Erosion evidence",
+    assessment: {
+      status: "Queued for ML evaluation",
+      summary: "The geotagged image is ready for your ML model to classify erosion and estimate land-condition change.",
+      actions: ["Await ML erosion classification", "Compare with rainfall and flood-risk layers", "Generate location-specific improvement actions"]
+    },
     validationStatus: "Pending",
     modelConfidenceBefore: baseConfidence,
     modelConfidenceAfter: null
