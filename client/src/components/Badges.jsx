@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 export function riskColor(category) {
   switch (category) {
     case "Very Low": return { text: "text-[var(--color-green)]", bg: "bg-[var(--color-green-soft)]", swatch: "bg-[var(--color-green)]", ring: "ring-[var(--color-green)]/30" };
@@ -11,17 +13,19 @@ export function riskColor(category) {
 }
 
 export function RiskPill({ category, size = "md" }) {
+  const { t } = useTranslation();
   const c = riskColor(category);
   const sizeCls = size === "sm" ? "text-[11px] gap-1" : "text-xs gap-1.5";
   return (
     <span className={`inline-flex items-center font-semibold ${c.text} ${sizeCls}`}>
       <span className={`h-2.5 w-2.5 shrink-0 ${c.swatch}`} />
-      {category}
+      {t(`risk.${category}`, category)}
     </span>
   );
 }
 
 export function DataModeBadge({ mode = "DEMO" }) {
+  const { t } = useTranslation();
   const isLive = mode === "LIVE";
   return (
     <span
@@ -33,17 +37,18 @@ export function DataModeBadge({ mode = "DEMO" }) {
       title={isLive ? "Live satellite/GEE data" : "Seeded demo environmental dataset"}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${isLive ? "bg-[var(--color-green)]" : "bg-[var(--color-amber)]"}`} />
-      {isLive ? "Live Satellite Data" : "Demo Data"}
+      {isLive ? t("badges.liveData") : t("badges.demoData")}
     </span>
   );
 }
 
 export function DataSourceLine({ sources }) {
+  const { t } = useTranslation();
   if (!sources || !sources.length) return null;
   return (
     <p className="text-[11px] text-[var(--color-text-faint)]">
-      Data source: <span className="text-[var(--color-text-muted)]">{sources.join(" \u2022 ").replace(/\s*\(demo\)/g, "")}</span>{" "}
-      <span className="italic">(source simulation for prototype)</span>
+      {t("badges.dataSource")} <span className="text-[var(--color-text-muted)]">{sources.join(" \u2022 ").replace(/\s*\(demo\)/g, "")}</span>{" "}
+      <span className="italic">{t("badges.sourceSimNote")}</span>
     </p>
   );
 }

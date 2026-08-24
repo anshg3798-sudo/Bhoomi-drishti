@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { PlayCircle, Loader2 } from "lucide-react";
 import AppLayout from "../components/AppLayout";
 import RusleBreakdown from "../components/RusleBreakdown";
@@ -9,21 +10,16 @@ import { ErrorState } from "../components/States";
 import { useRegion } from "../context/RegionContext";
 import api from "../api/client";
 
-const STAGES = [
-  "Acquiring environmental data...",
-  "Calculating RUSLE...",
-  "Analyzing hydrology...",
-  "Generating prediction...",
-  "Preparing recommendations..."
-];
-
 export default function Analysis() {
+  const { t } = useTranslation();
   const { regions, selectedRegionId, setSelectedRegionId } = useRegion();
   const [dateRange, setDateRange] = useState("last-6-seasons");
   const [running, setRunning] = useState(false);
   const [stageIndex, setStageIndex] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+
+  const STAGES = [t("analysis.stage1"), t("analysis.stage2"), t("analysis.stage3"), t("analysis.stage4"), t("analysis.stage5")];
 
   async function runAnalysis() {
     setRunning(true);
@@ -42,7 +38,7 @@ export default function Analysis() {
       ]);
       setResult(full);
     } catch (err) {
-      setError(err?.response?.data?.message || "Analysis failed. Please try again.");
+      setError(err?.response?.data?.message || t("analysis.errorDefault"));
     } finally {
       clearInterval(stageTimer);
       setRunning(false);
@@ -53,13 +49,13 @@ export default function Analysis() {
     <AppLayout>
       <div className="mx-auto max-w-6xl space-y-6 p-4 md:p-6">
         <div>
-          <h1 className="font-[var(--font-display)] text-xl font-semibold">Analyze Region</h1>
-          <p className="mt-1 text-xs text-[var(--color-text-faint)]">Run a full RUSLE + hydrology + forecast + recommendation pass</p>
+          <h1 className="font-[var(--font-display)] text-xl font-semibold">{t("analysis.title")}</h1>
+          <p className="mt-1 text-xs text-[var(--color-text-faint)]">{t("analysis.subtitle")}</p>
         </div>
 
         <div className="flex flex-wrap items-end gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
           <div>
-            <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">Region</label>
+            <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">{t("analysis.region")}</label>
             <select
               value={selectedRegionId}
               onChange={(e) => setSelectedRegionId(e.target.value)}
@@ -71,15 +67,15 @@ export default function Analysis() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">Date / time range</label>
+            <label className="mb-1 block text-[11px] text-[var(--color-text-faint)]">{t("analysis.dateRange")}</label>
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
               className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] px-3 py-2 text-sm"
             >
-              <option value="last-6-seasons">Last 6 seasons (demo)</option>
-              <option value="last-year">Last 12 months (demo)</option>
-              <option value="last-3-years">Last 3 years (demo)</option>
+              <option value="last-6-seasons">{t("analysis.last6Seasons")}</option>
+              <option value="last-year">{t("analysis.last12Months")}</option>
+              <option value="last-3-years">{t("analysis.last3Years")}</option>
             </select>
           </div>
           <button
@@ -88,7 +84,7 @@ export default function Analysis() {
             className="ml-auto flex items-center gap-2 rounded-lg bg-[var(--color-green)] px-5 py-2.5 text-sm font-semibold text-[#fdfcf6] disabled:opacity-60"
           >
             {running ? <Loader2 className="h-4 w-4 animate-spin" /> : <PlayCircle className="h-4 w-4" />}
-            Run Analysis
+            {t("analysis.runAnalysis")}
           </button>
         </div>
 
@@ -120,14 +116,14 @@ export default function Analysis() {
             <div className="grid gap-4 lg:grid-cols-2">
               <RusleBreakdown rusle={result.rusle} />
               <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-                <h3 className="font-[var(--font-display)] text-sm font-semibold">RUSLE Factor Contribution</h3>
+                <h3 className="font-[var(--font-display)] text-sm font-semibold">{t("analysis.rusleFactorTitle")}</h3>
                 <div className="mt-3"><RusleFactorChart factors={result.rusle.factors} /></div>
               </div>
             </div>
 
             <div className="grid gap-4 lg:grid-cols-2">
               <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-                <h3 className="font-[var(--font-display)] text-sm font-semibold">Forecast</h3>
+                <h3 className="font-[var(--font-display)] text-sm font-semibold">{t("analysis.forecastTitle")}</h3>
                 <p className="mt-1 text-[11px] text-[var(--color-text-faint)]">{result.forecast.method}</p>
                 <div className="mt-3"><ForecastChart series={result.historicalSeries} forecast={result.forecast} /></div>
                 <ul className="mt-3 space-y-1 text-[11px] text-[var(--color-text-faint)]">
@@ -135,10 +131,10 @@ export default function Analysis() {
                 </ul>
               </div>
               <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-                <h3 className="font-[var(--font-display)] text-sm font-semibold">Hydrological Priority</h3>
+                <h3 className="font-[var(--font-display)] text-sm font-semibold">{t("analysis.hydroPriorityTitle")}</h3>
                 <p className="mt-2 text-sm text-[var(--color-text-muted)]">{result.hydrology.explanation}</p>
-                <p className="mt-3 text-[11px] text-[var(--color-text-faint)]">Flow accumulation: <span className="text-[var(--color-text-muted)]">{result.hydrology.flowAccumulation}</span></p>
-                <p className="mt-4 text-[11px] uppercase tracking-wide text-[var(--color-text-faint)]">Flood risk factors</p>
+                <p className="mt-3 text-[11px] text-[var(--color-text-faint)]">{t("analysis.flowAccumulation")} <span className="text-[var(--color-text-muted)]">{result.hydrology.flowAccumulation}</span></p>
+                <p className="mt-4 text-[11px] uppercase tracking-wide text-[var(--color-text-faint)]">{t("analysis.floodRiskFactors")}</p>
                 <ul className="mt-1 space-y-1 text-xs text-[var(--color-text-muted)]">
                   {result.floodRisk.reasons.map((r, i) => <li key={i}>&bull; {r}</li>)}
                 </ul>
@@ -148,7 +144,7 @@ export default function Analysis() {
             <ExplanationPanel explanation={result.aiExplanation} />
 
             <div>
-              <h3 className="font-[var(--font-display)] text-sm font-semibold">Conservation Recommendations</h3>
+              <h3 className="font-[var(--font-display)] text-sm font-semibold">{t("analysis.conservationTitle")}</h3>
               <div className="mt-3 grid gap-3 md:grid-cols-2">
                 {result.recommendations.map((rec, i) => <RecommendationCard key={i} rec={rec} />)}
               </div>
@@ -158,7 +154,7 @@ export default function Analysis() {
 
         {!result && !running && !error && (
           <div className="rounded-xl border border-dashed border-[var(--color-border)] py-14 text-center text-sm text-[var(--color-text-faint)]">
-            Select a region and click "Run Analysis" to generate a full report.
+            {t("analysis.emptyPrompt")}
           </div>
         )}
       </div>

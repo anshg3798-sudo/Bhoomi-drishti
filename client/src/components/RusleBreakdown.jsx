@@ -1,24 +1,26 @@
+import { useTranslation } from "react-i18next";
 import { riskColor } from "./Badges";
 
-const FACTOR_LABELS = {
-  R: "Rainfall erosivity",
-  K: "Soil erodibility",
-  LS: "Slope length & steepness",
-  C: "Cover management",
-  P: "Conservation practice"
-};
-
 export default function RusleBreakdown({ rusle }) {
+  const { t } = useTranslation();
   if (!rusle) return null;
   const c = riskColor(rusle.riskCategory);
+
+  const FACTOR_LABELS = {
+    R: t("rusle.factorR"),
+    K: t("rusle.factorK"),
+    LS: t("rusle.factorLS"),
+    C: t("rusle.factorC"),
+    P: t("rusle.factorP")
+  };
 
   return (
     <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
       <div className="flex items-center justify-between">
-        <h3 className="font-[var(--font-display)] text-sm font-semibold">RUSLE Soil-Loss Breakdown</h3>
-        <span className={`rounded-md px-2 py-0.5 text-[11px] font-semibold ${c.text} ${c.bg}`}>{rusle.riskCategory}</span>
+        <h3 className="font-[var(--font-display)] text-sm font-semibold">{t("rusle.title")}</h3>
+        <span className={`rounded-md px-2 py-0.5 text-[11px] font-semibold ${c.text} ${c.bg}`}>{t(`risk.${rusle.riskCategory}`, rusle.riskCategory)}</span>
       </div>
-      <p className="mt-1 text-[11px] text-[var(--color-text-faint)]">A = R &times; K &times; LS &times; C &times; P &middot; estimated demo inputs</p>
+      <p className="mt-1 text-[11px] text-[var(--color-text-faint)]">{t("rusle.formulaNote")}</p>
 
       <div className="mt-4 grid grid-cols-5 gap-2">
         {Object.entries(rusle.factors).map(([key, value]) => (
@@ -34,7 +36,7 @@ export default function RusleBreakdown({ rusle }) {
       </div>
 
       <div className="mt-3 flex items-baseline justify-between">
-        <span className="text-xs text-[var(--color-text-faint)]">Estimated Soil Loss</span>
+        <span className="text-xs text-[var(--color-text-faint)]">{t("rusle.estimatedSoilLoss")}</span>
         <span className="data-figure text-xl font-semibold">{rusle.soilLoss} <span className="text-xs font-normal text-[var(--color-text-faint)]">t/ha/year</span></span>
       </div>
 
