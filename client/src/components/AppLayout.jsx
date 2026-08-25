@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  LayoutDashboard, SearchCode, Map as MapIcon, ListOrdered, Sprout,
+  Home, LayoutDashboard, SearchCode, Map as MapIcon, ListOrdered, Sprout,
   Camera, Info, LogOut, Mountain
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
@@ -17,6 +17,7 @@ export default function AppLayout({ children }) {
   const navigate = useNavigate();
 
   const NAV_ITEMS = [
+    { to: "/", label: t("nav.home"), icon: Home, end: true },
     { to: "/dashboard", label: t("nav.overview"), icon: LayoutDashboard },
     { to: "/analysis", label: t("nav.analyze"), icon: SearchCode },
     { to: "/risk-map", label: t("nav.riskMap"), icon: MapIcon },
@@ -46,10 +47,11 @@ export default function AppLayout({ children }) {
         </div>
 
         <nav className="flex-1 space-y-1 px-3 py-2 scrollbar-thin overflow-y-auto">
-          {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+          {NAV_ITEMS.map(({ to, label, icon: Icon, end }) => (
             <NavLink
               key={to}
               to={to}
+              end={end}
               className={({ isActive }) =>
                 `flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
                   isActive
