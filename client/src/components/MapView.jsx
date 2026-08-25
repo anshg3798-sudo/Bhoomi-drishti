@@ -41,6 +41,23 @@ function Recenter({ coordinates }) {
   return null;
 }
 
+// react-leaflet's <GeoJSON> only reads its `data` prop on first mount — Leaflet's
+// underlying GeoJSON layer does not diff/redraw on prop updates. So when the
+// selected region changes and new geometry comes in, the shape must be
+// re-mounted (via a changing `key`) or it will keep showing the very first
+// polygon/lines it was ever given. We derive the key from the geometry's own
+// coordinates so it changes exactly when the actual shape changes — not from
+// selectedRegionId, which can update a moment before the new geometry arrives
+// from the API and would otherwise cause a stale remount.
+function geoKey(featureCollection) {
+  if (!featureCollection?.features?.length) return "empty";
+  try {
+    return JSON.stringify(featureCollection.features.map((f) => f.geometry?.coordinates));
+  } catch {
+    return "fallback";
+  }
+}
+
 export default function MapView({
   zones = [],
   selectedRegionId,
@@ -108,15 +125,17 @@ export default function MapView({
 
         {showFlow && hydrology?.flowPaths && (
           <GeoJSON
+            key={`flow-${geoKey(hydrology.flowPaths)}`}
             data={hydrology.flowPaths}
-            style={() => ({ color: "#4a93c9", weight: 2.5, dashArray: "1 6", opacity: 0.85 })}
+            style={() => ({ color: "#4a93c9", weight: 2.5, dashArray: "1 6", opacity: 0.85, interactive: false })}
           />
         )}
 
         {showPriorityZone && hydrology?.priorityZone && (
           <GeoJSON
+            key={`priority-${geoKey(hydrology.priorityZone)}`}
             data={hydrology.priorityZone}
-            style={() => ({ color: "#7a3018", weight: 1.5, fillColor: "#7a3018", fillOpacity: 0.12, dashArray: "4 4" })}
+            style={() => ({ color: "#7a3018", weight: 1.5, fillColor: "#7a3018", fillOpacity: 0.12, dashArray: "4 4", interactive: false })}
           />
         )}
 
